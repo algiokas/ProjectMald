@@ -18,7 +18,7 @@ bool init_game(SDL_Window*& window, SDL_Surface*& surface, int window_width, int
     else
     {
         //Create window
-        window = SDL_CreateWindow("SDL Blah", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_SHOWN);
+        window = SDL_CreateWindow("Project Mald - PROOF OF CONCEPT", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_SHOWN);
         if (window == NULL)
         {
             std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;

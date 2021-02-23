@@ -55,14 +55,13 @@ void Character::move_towards(int x, int y, float spd)
 	//get new location value by adding normalized displacement vector multiplied by movespeed
 	float new_x = this->loc.x + spd * (disp_x / disp_length);
 	float new_y = this->loc.y + spd * (disp_y / disp_length);
-	std::cout << "MOVE: (" << (int)round(this->loc.x) << ", " << (int)round(this->loc.x) << ") -> ";
+	
 	if (!world->check_collision_x(new_x, new_x + this->hitbox.width)) {
 		this->loc.x = new_x;
 	}
 	if (!world->check_collision_y(new_y, new_y + this->hitbox.height)) {
 		this->loc.y = new_y;
 	}
-	std::cout << "(" << (int)round(this->loc.x) << ", " << (int)round(this->loc.x) << ")";
 }
 
 //Draw the character's current sprite state onto the destination surface
