@@ -21,13 +21,13 @@
     <ClInclude Include="header\WorldSpace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\Character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="header\Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\Color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\GameChar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,13 +35,13 @@
     <ClCompile Include="src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\WorldSpace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameChar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

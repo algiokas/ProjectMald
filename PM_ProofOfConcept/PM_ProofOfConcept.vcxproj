@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\Character.h" />
+    <ClInclude Include="header\GameChar.h" />
     <ClInclude Include="header\Color.h" />
     <ClInclude Include="header\Game.h" />
     <ClInclude Include="header\Util.h" />
@@ -27,7 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\WorldSpace.cpp" />
-    <ClCompile Include="src\Character.cpp" />
+    <ClCompile Include="src\GameChar.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>

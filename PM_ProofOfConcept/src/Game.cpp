@@ -1,4 +1,5 @@
 #include "../header/Game.h"
+#include "../header/WorldSpace.h"
 
 #include <iostream>
 #include <vector>
@@ -48,12 +49,10 @@ bool load_image(SDL_Surface*& imgSurface, const char* filepath)
 	return success;
 }
 
-void close(SDL_Window* window, std::vector<SDL_Surface*> surfaces)
+void close(SDL_Window* window, WorldSpace* world)
 {
-	for (SDL_Surface* s : surfaces)
-	{
-		SDL_FreeSurface(s);
-	}
+    delete world; //MWAHAHAHAHA
+
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }

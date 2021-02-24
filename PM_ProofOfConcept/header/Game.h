@@ -1,5 +1,6 @@
 #pragma once
 
+#include "WorldSpace.h"
 #include <SDL2/SDL.h>
 #include <vector>
 
@@ -8,4 +9,4 @@ bool init_game(SDL_Window*& window, SDL_Surface*& surface, int window_width, int
 
 bool load_image(SDL_Surface*& imgSurface, const char* filepath);
 
-void close(SDL_Window* window, std::vector<SDL_Surface*> surfaces);
+void close(SDL_Window* window, std::vector<SDL_Surface*> surfaces, WorldSpace* world);

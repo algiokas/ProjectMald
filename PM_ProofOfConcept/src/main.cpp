@@ -8,7 +8,7 @@
 
 #include "../header/Game.h"
 #include "../header/Util.h"
-#include "../header/Character.h"
+#include "../header/GameChar.h"
 #include "../header/WorldSpace.h"
 
 //constants
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 	hit_box.height = 10;
 
 	WorldSpace* world = new WorldSpace(WINDOW_WIDTH, WINDOW_HEIGHT, 5);
-	Character* slime = new Character("Slime", "SlimeTest", start_loc, hit_box, world);
+	GameChar* slime = new GameChar("Slime", "SlimeTest", start_loc, hit_box, world);
 
 	if (!init_game(gWindow, gWindowSurface, WINDOW_WIDTH, WINDOW_HEIGHT))
 	{
@@ -71,6 +71,6 @@ int main(int argc, char* argv[])
 	
 	std::vector<SDL_Surface*> all_surfaces;
 	all_surfaces.push_back(gImgSurface);
-	close(gWindow, all_surfaces);
+	close(gWindow, all_surfaces, world);
 	return 0;
 }
