@@ -1,5 +1,4 @@
 #include "../header/WorldSpace.h"
-#include "../header/GameChar.h"
 
 WorldSpace::WorldSpace(int width, int height, int margin)
 {

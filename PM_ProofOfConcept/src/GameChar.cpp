@@ -1,5 +1,4 @@
 #include "../header/GameChar.h"
-#include "../header/WorldSpace.h"
 
 #include <iostream>
 #include <cmath>

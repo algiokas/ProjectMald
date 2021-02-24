@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-
 #include "WorldSpace.h"
 
 //Initialize SDL and create a window

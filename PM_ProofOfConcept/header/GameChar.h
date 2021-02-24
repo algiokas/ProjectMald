@@ -7,6 +7,8 @@
 #include "WorldSpace.h"
 #include "Util.h"
 
+class WorldSpace;
+
 class GameChar {
 	std::string name;
 	std::string asset_dir;

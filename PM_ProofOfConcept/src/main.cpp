@@ -6,6 +6,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 
+#include "../header/Color.h"
 #include "../header/Game.h"
 #include "../header/Util.h"
 #include "../header/GameChar.h"
@@ -62,7 +63,7 @@ int main(int argc, char* argv[])
 				SDL_GetMouseState(&mouse_x, &mouse_y);
 				slime->move_towards(mouse_x, mouse_y, 0.25);
 			}
-			SDL_FillRect(gWindowSurface, NULL, SDL_MapRGB(gWindowSurface->format, 0xFF, 0xFF, 0xFF));
+			SDL_FillRect(gWindowSurface, NULL, SDL_MapRGB(gWindowSurface->format, COLOR_BLACK.r, COLOR_BLACK.g, COLOR_BLACK.b));
 			slime->draw_character(gWindowSurface);
 			SDL_UpdateWindowSurface(gWindow);
 		}

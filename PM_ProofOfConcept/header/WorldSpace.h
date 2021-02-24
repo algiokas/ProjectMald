@@ -4,6 +4,8 @@
 
 #include "GameChar.h"
 
+class GameChar;
+
 class WorldSpace
 {
 	int width;
@@ -13,7 +15,7 @@ class WorldSpace
 
 public:
 	WorldSpace(int width, int height, int margin);
-	//~WorldSpace();
+	~WorldSpace();
 	bool check_collision_x(float x1, float x2);
 	bool check_collision_y(float y1, float y2);
 	void add_character(GameChar* new_char);
