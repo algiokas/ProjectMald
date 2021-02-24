@@ -27,6 +27,9 @@
     <ClInclude Include="header\Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\Color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game.cpp">

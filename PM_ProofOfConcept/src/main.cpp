@@ -39,41 +39,33 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
-		const char* filepath = "assets/SlimeTest/Movement1.bmp";
-		if (!load_image(gImgSurface, filepath))
+		bool quit = false;
+		bool click = false;
+		SDL_Event e;
+		while (!quit)
 		{
-			std::cerr << "Failed to Load Image" << std::endl;
-		}
-		else
-		{
-			bool quit = false;
-			bool click = false;
-			SDL_Event e;
-			while (!quit)
+			while (SDL_PollEvent(&e) != 0)
 			{
-				while (SDL_PollEvent(&e) != 0)
-				{
-					switch (e.type) {
-						case SDL_QUIT:
-							quit = true;
-							break;
-						case SDL_MOUSEBUTTONDOWN:
-							click = true;
-							break;
-						case SDL_MOUSEBUTTONUP:
-							click = false;
-							break;
-					}			
+				switch (e.type) {
+				case SDL_QUIT:
+					quit = true;
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					click = true;
+					break;
+				case SDL_MOUSEBUTTONUP:
+					click = false;
+					break;
 				}
-				if (click) {
-					int mouse_x, mouse_y;
-					SDL_GetMouseState(&mouse_x, &mouse_y);
-					slime->move_towards(mouse_x, mouse_y, 0.25);
-				}
-				SDL_FillRect(gWindowSurface, NULL, SDL_MapRGB(gWindowSurface->format, 0xFF, 0xFF, 0xFF));
-				slime->draw_character(gWindowSurface);
-				SDL_UpdateWindowSurface(gWindow);
 			}
+			if (click) {
+				int mouse_x, mouse_y;
+				SDL_GetMouseState(&mouse_x, &mouse_y);
+				slime->move_towards(mouse_x, mouse_y, 0.25);
+			}
+			SDL_FillRect(gWindowSurface, NULL, SDL_MapRGB(gWindowSurface->format, 0xFF, 0xFF, 0xFF));
+			slime->draw_character(gWindowSurface);
+			SDL_UpdateWindowSurface(gWindow);
 		}
 	}
 	
