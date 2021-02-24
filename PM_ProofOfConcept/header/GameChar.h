@@ -27,5 +27,5 @@ public:
 	~GameChar();
 	void move_to(float x, float y);
 	void move_towards(int x, int y, float spd);
-	void draw_character(SDL_Renderer* renderer);
+	void render(SDL_Renderer* renderer);
 };

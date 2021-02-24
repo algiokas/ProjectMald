@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 		SDL_Event e;
 
 		GameChar* slime = new GameChar("Slime", "SlimeTest", start_loc, world, ImageRepo);
-
+		world->add_character(slime);
 		while (!quit)
 		{
 			while (SDL_PollEvent(&e) != 0)
@@ -64,9 +64,8 @@ int main(int argc, char* argv[])
 				SDL_GetMouseState(&mouse_x, &mouse_y);
 				slime->move_towards(mouse_x, mouse_y, 0.25);
 			}
-			SDL_RenderClear(gRenderer);
-			slime->draw_character(gRenderer);
-			SDL_RenderPresent(gRenderer);
+			world->render();
+
 		}
 	}	
 	close(gWindow, world);

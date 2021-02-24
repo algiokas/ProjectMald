@@ -1,9 +1,9 @@
 #pragma once
 
 struct color {
-	const int r;
-	const int g;
-	const int b;
+	int r;
+	int g;
+	int b;
 };
 
 const color COLOR_BLACK = { 0xFF, 0xFF, 0xFF };

@@ -83,13 +83,13 @@ void GameChar::move_towards(int x, int y, float spd)
 }
 
 //Draw the character's current sprite state onto the destination surface
-void GameChar::draw_character(SDL_Renderer* renderer)
+void GameChar::render(SDL_Renderer* renderer)
 {
 	SDL_Rect dstrect;
 	dstrect.x = (int)round(this->loc.x);
 	dstrect.y = (int)round(this->loc.y);
-	dstrect.w = 64; // hitbox.width * 3;
-	dstrect.h = 64; // hitbox.height * 3;
+	dstrect.w = 32; // hitbox.width;
+	dstrect.h = 32; // hitbox.height;
 
 	SDL_RenderCopy(renderer, sprites[0], NULL, &dstrect);
 }
