@@ -1,9 +1,10 @@
-#include "../header/Character.h"
+#include "../header/GameChar.h"
+#include "../header/WorldSpace.h"
 
 #include <iostream>
 #include <cmath>
 
-Character::Character(std::string name, std::string asset_dir, location init_loc, rect hbox, WorldSpace* world)
+GameChar::GameChar(std::string name, std::string asset_dir, location init_loc, rect hbox, WorldSpace* world)
 {
 	this->name = name;
 	this->asset_dir = asset_dir;
@@ -14,7 +15,15 @@ Character::Character(std::string name, std::string asset_dir, location init_loc,
 	load_sprites();
 }
 
-void Character::load_sprites()
+GameChar::~GameChar()
+{
+	for (SDL_Surface* s : sprites)
+	{
+		SDL_FreeSurface(s);
+	}
+}
+
+void GameChar::load_sprites()
 {
 	//TODO load sprites based on asset_dir
 	std::string fpath = "assets/" + asset_dir + "/Movement1.bmp";
@@ -27,7 +36,7 @@ void Character::load_sprites()
 }
 
 //Move the centerpoint of the character to (x, y)
-void Character::move_to(float x, float y)
+void GameChar::move_to(float x, float y)
 {
 	float new_x = x - (hitbox.width / 2.0f);
 	if (new_x > 5 && new_x < (640 ))
@@ -38,7 +47,7 @@ void Character::move_to(float x, float y)
 }
 
 //Move in the direction of the point (x, y) with steps of size [spd]
-void Character::move_towards(int x, int y, float spd)
+void GameChar::move_towards(int x, int y, float spd)
 {
 	//TODO add custom step length, either via parameter or using a class field
 
@@ -65,7 +74,7 @@ void Character::move_towards(int x, int y, float spd)
 }
 
 //Draw the character's current sprite state onto the destination surface
-void Character::draw_character(SDL_Surface* dest)
+void GameChar::draw_character(SDL_Surface* dest)
 {
 	SDL_Rect srcrect;
 	srcrect.x = 10;

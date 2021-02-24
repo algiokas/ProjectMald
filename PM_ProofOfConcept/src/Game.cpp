@@ -1,8 +1,6 @@
 #include "../header/Game.h"
 
 #include <iostream>
-#include <vector>
-
 
 bool init_game(SDL_Window*& window, SDL_Surface*& surface, int window_width, int window_height)
 {
@@ -48,12 +46,10 @@ bool load_image(SDL_Surface*& imgSurface, const char* filepath)
 	return success;
 }
 
-void close(SDL_Window* window, std::vector<SDL_Surface*> surfaces)
+void close(SDL_Window* window, WorldSpace* world)
 {
-	for (SDL_Surface* s : surfaces)
-	{
-		SDL_FreeSurface(s);
-	}
-	SDL_DestroyWindow(window);
-	SDL_Quit();
+    delete world; //MWAHAHAHA
+
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }

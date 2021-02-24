@@ -7,7 +7,7 @@
 #include "WorldSpace.h"
 #include "Util.h"
 
-class Character {
+class GameChar {
 	std::string name;
 	std::string asset_dir;
 	location loc;
@@ -19,8 +19,8 @@ class Character {
 	void load_sprites();
 
 public:
-	Character(std::string name, std::string asset_dir, location init_loc, rect hbox, WorldSpace* world);
-
+	GameChar(std::string name, std::string asset_dir, location init_loc, rect hbox, WorldSpace* world);
+	~GameChar();
 	void move_to(float x, float y);
 	void move_towards(int x, int y, float spd);
 	void draw_character(SDL_Surface* dest);
