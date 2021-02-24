@@ -23,10 +23,12 @@
     <ClInclude Include="header\GameChar.h" />
     <ClInclude Include="header\Color.h" />
     <ClInclude Include="header\Game.h" />
+    <ClInclude Include="header\JsonUtils.h" />
     <ClInclude Include="header\Util.h" />
     <ClInclude Include="header\WorldSpace.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\JsonUtils.cpp" />
     <ClCompile Include="src\ImageRepo.cpp" />
     <ClCompile Include="src\WorldSpace.cpp" />
     <ClCompile Include="src\GameChar.cpp" />
@@ -139,6 +141,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

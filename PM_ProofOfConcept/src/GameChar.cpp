@@ -27,7 +27,7 @@ GameChar::~GameChar()
 void GameChar::load_sprites()
 {
 	//TODO load sprites based on asset_dir
-	std::string base_sprite_fname = "SmallTestCharacterWalkingAnimation";
+	std::string base_sprite_fname = "Characters/Goimbo/SmallTestCharacterWalkingAnimation";
 	for (int i = 1; i < 11; i++) {
 		std::string fpath = base_sprite_fname + std::to_string(i) + ".png";
 		SDL_Texture* tex = loader->loadTexture(fpath);

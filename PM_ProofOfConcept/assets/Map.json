@@ -1,5 +1,8 @@
 {
-    "backgroundcolor": "black",
-    "backgroundimage": "
-
+  "dimensions": {
+    "width": 640,
+    "height": 480
+  },
+  "backgroundcolor": "COLOR_BLACK",
+  "backgroundimage": "CaveFloorTest-export.png"
 }

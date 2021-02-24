@@ -1,4 +1,7 @@
 #include "../header/WorldSpace.h"
+#include "../header/JsonUtils.h"
+
+using json = nlohmann::json;
 
 WorldSpace::WorldSpace(int width, int height, int margin, ImageRepo* img_repo, SDL_Renderer* renderer)
 {
@@ -22,8 +25,9 @@ WorldSpace::~WorldSpace()
 
 void WorldSpace::init()
 {
-	bg_texture = img_repo->loadTexture("CaveFloorTest-export.png");
-
+	json worldData = load_json("/assets/Map.json");
+	std::string bg_path = "/assets/Background/" + worldData["backgroundimage"];
+	bg_texture = img_repo->loadTexture(bg_path);
 	//Set background color, this is the color that displays behind the background image 
 	//and will show through if the background has any transparency
 	SDL_SetRenderDrawColor(renderer, COLOR_BLACK.r, COLOR_BLACK.g, COLOR_BLACK.b, 0xFF);
