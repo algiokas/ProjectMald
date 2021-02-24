@@ -1,0 +1,7 @@
+﻿  Installing vcpkg dependencies
+  Detecting compiler hash for triplet x86-windows...
+  All requested packages are currently installed.
+  
+  Total elapsed time: 1.7 us
+  
+LINK : fatal error LNK1104: cannot open file 'SDL2.lib'

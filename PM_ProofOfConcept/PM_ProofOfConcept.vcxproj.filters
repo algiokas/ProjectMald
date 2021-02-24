@@ -18,21 +18,21 @@
     <ClInclude Include="header\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\Util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="header\WorldSpace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\Util.h">
+    <ClInclude Include="header\Colors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
@@ -41,5 +41,11 @@
     <ClCompile Include="src\WorldSpace.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vcpkg.json" />
   </ItemGroup>
 </Project>

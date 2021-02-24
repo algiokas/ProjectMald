@@ -1,0 +1,102 @@
+Package: zlib
+Version: 1.2.11
+Port-Version: 9
+Architecture: x86-windows
+Multi-Arch: same
+Abi: d988d3795b7075a01b913f03110d248267616dda
+Description: A compression library
+Type: Port
+Status: purge ok not-installed
+
+Package: libpng
+Version: 1.6.37
+Port-Version: 14
+Depends: zlib
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 71767a71ad82123577a467cbe54752cd56efcec7
+Description: libpng is a library implementing an interface for reading and writing PNG (Portable Network Graphics) format files.
+Type: Port
+Status: purge ok not-installed
+
+Package: nlohmann-json
+Version: 3.9.1
+Architecture: x86-windows
+Multi-Arch: same
+Abi: cec02cf55e847b130bb4a198d0f38d55ef4e501a
+Description: JSON for Modern C++
+Type: Port
+Status: purge ok not-installed
+
+Package: sdl2
+Version: 2.0.12
+Port-Version: 8
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 2ae7a5ae21c0ddb729f4a3c09d09987cd1d31fda
+Description: Simple DirectMedia Layer is a cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D.
+Type: Port
+Status: purge ok not-installed
+
+Package: sdl2-image
+Version: 2.0.5
+Port-Version: 1
+Depends: libpng, sdl2
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 0b488c683b75c39826b2f00bae4b7be2f02ce29e
+Description: SDL_image is an image file loading library. It loads images as SDL surfaces and textures, and supports the following formats: BMP, GIF, JPEG, LBM, PCX, PNG, PNM, TGA, TIFF, WEBP, XCF, XPM, XV
+Type: Port
+Status: purge ok not-installed
+
+Package: zlib
+Version: 1.2.11
+Port-Version: 9
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 0702643c413f5078116b844953cb83e90d505a93
+Description: A compression library
+Type: Port
+Status: install ok installed
+
+Package: libpng
+Version: 1.6.37
+Port-Version: 14
+Depends: zlib
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 11953a3ccb0a94cfac5b87b5765f60e171df3273
+Description: libpng is a library implementing an interface for reading and writing PNG (Portable Network Graphics) format files.
+Type: Port
+Status: install ok installed
+
+Package: nlohmann-json
+Version: 3.9.1
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 97ad1d9bd7ce9488ff7c14cead4f3aee5fae521e
+Description: JSON for Modern C++
+Type: Port
+Status: install ok installed
+
+Package: sdl2
+Version: 2.0.12
+Port-Version: 8
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 3c69e8c172d7afe0f9f41b8cfe3ba5e39edfb088
+Description: Simple DirectMedia Layer is a cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D.
+Type: Port
+Status: install ok installed
+
+Package: sdl2-image
+Version: 2.0.5
+Port-Version: 1
+Depends: libpng, sdl2
+Architecture: x64-windows
+Multi-Arch: same
+Abi: c6fc76db5df1162f0dc96f35c45b5968f017eb02
+Description: SDL_image is an image file loading library. It loads images as SDL surfaces and textures, and supports the following formats: BMP, GIF, JPEG, LBM, PCX, PNG, PNM, TGA, TIFF, WEBP, XCF, XPM, XV
+Type: Port
+Status: install ok installed
+
