@@ -1,0 +1,11 @@
+[
+     "fists": {
+        "id": 4,
+        "type": "item",
+        "Name": "fists",
+        "BuyValue": 1,
+        "SellValue": 1,
+        "ReqPhysAttack": 1,
+        "Strength": 1
+    }
+]

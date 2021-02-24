@@ -6,7 +6,7 @@
 #include "Color.h"
 
 class GameChar;
-//class ImageRepo;
+class ImageRepo;
 
 class WorldSpace
 {

@@ -1,0 +1,33 @@
+{
+    "blob": {
+        "id": 1,
+        "type": "enemy",
+        "name": "blob",
+        "Hp": 2,
+        "Physdefense": 1,
+        "Physattack": 1,
+        "Image": "IdleSlimeSouthTest"
+    },
+
+        "vendorbob": {
+        "id": 2,
+        "type": "vendor",
+        "Name": "vendorbob",
+        "Image": "VendorIdleTest-export1",
+        "Inventory": {
+            "ItemID": 4
+        }
+    },
+
+
+    "goimbo": {
+        "id": 3,
+        "type": "player",
+        "HP": 4,
+        "Physattack": 1,
+        "Physdefense": 1,
+        "Image": "TestCharacterWalkingAnimation1",
+        "Inventory": {
+        }
+    }
+}
