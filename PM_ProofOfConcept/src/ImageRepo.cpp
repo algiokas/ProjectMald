@@ -1,10 +1,10 @@
-#include "../header/AssetLoader.h"
+#include "../header/ImageRepo.h"
 
 #include <SDL2/SDL_image.h>
 
 #include <iostream>
 
-AssetLoader::AssetLoader(SDL_Renderer* gRenderer, std::string asset_dir)
+ImageRepo::ImageRepo(SDL_Renderer* gRenderer, std::string asset_dir)
 {
     this->base_dir = asset_dir;
     this->renderer = gRenderer;
@@ -18,7 +18,7 @@ AssetLoader::AssetLoader(SDL_Renderer* gRenderer, std::string asset_dir)
     }
 }
 
-SDL_Texture* AssetLoader::loadTexture(std::string relative_path)
+SDL_Texture* ImageRepo::loadTexture(std::string relative_path)
 {
 	SDL_Texture* tex = NULL;
     SDL_Surface* loaded_surface = this->loadSurface(relative_path);
@@ -33,7 +33,7 @@ SDL_Texture* AssetLoader::loadTexture(std::string relative_path)
     return tex;
 }
 
-SDL_Surface* AssetLoader::loadSurface(std::string relative_path)
+SDL_Surface* ImageRepo::loadSurface(std::string relative_path)
 {
     std::string full_path = base_dir + relative_path;
     SDL_Surface* loaded_surface = IMG_Load(full_path.c_str());

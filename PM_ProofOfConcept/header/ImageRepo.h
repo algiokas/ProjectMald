@@ -4,7 +4,7 @@
 
 #include <SDL2/SDL.h>
 
-class AssetLoader
+class ImageRepo
 {	
 	std::string base_dir;
 	SDL_Renderer* renderer;
@@ -12,7 +12,7 @@ class AssetLoader
 public:
 	bool img_init_success;
 
-	AssetLoader(SDL_Renderer* gRenderer, std::string asset_dir = "assets/");
+	ImageRepo(SDL_Renderer* gRenderer, std::string asset_dir = "assets/");
 	SDL_Texture* loadTexture(std::string relative_path);
 	SDL_Surface* loadSurface(std::string relative_path);
 };

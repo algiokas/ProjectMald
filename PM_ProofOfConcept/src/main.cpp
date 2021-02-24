@@ -11,7 +11,7 @@
 #include "../header/Util.h"
 #include "../header/GameChar.h"
 #include "../header/WorldSpace.h"
-#include "../header/AssetLoader.h"
+#include "../header/ImageRepo.h"
 
 //constants
 const int WINDOW_WIDTH = 640;
@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 	//The window we'll be rendering to
 	SDL_Window *gWindow = NULL;
 	SDL_Renderer* gRenderer = NULL;
-	AssetLoader* assetLoader = NULL;
+	ImageRepo* ImageRepo = NULL;
 	WorldSpace* world = NULL;
 
 	location start_loc;
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 
 	
 
-	if (!init_game(gWindow, gRenderer, assetLoader, "", world, WINDOW_WIDTH, WINDOW_HEIGHT))
+	if (!init_game(gWindow, gRenderer, ImageRepo, "", world, WINDOW_WIDTH, WINDOW_HEIGHT))
 	{
 		std::cerr << "Failed to initialize" << std::endl;
 	}
@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 		bool click = false;
 		SDL_Event e;
 
-		GameChar* slime = new GameChar("Slime", "SlimeTest", start_loc, world, assetLoader);
+		GameChar* slime = new GameChar("Slime", "SlimeTest", start_loc, world, ImageRepo);
 
 		while (!quit)
 		{
@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
 			}
 			SDL_RenderClear(gRenderer);
 			slime->draw_character(gRenderer);
-			SDL_UpdateWindowSurface(gWindow);
+			SDL_RenderPresent(gRenderer);
 		}
 	}	
 	close(gWindow, world);

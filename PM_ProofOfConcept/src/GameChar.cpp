@@ -1,10 +1,10 @@
 #include "../header/GameChar.h"
-#include "../header/AssetLoader.h"
+#include "../header/ImageRepo.h"
 
 #include <iostream>
 #include <cmath>
 
-GameChar::GameChar(std::string name, std::string asset_dir, location init_loc, WorldSpace* world, AssetLoader* loader)
+GameChar::GameChar(std::string name, std::string asset_dir, location init_loc, WorldSpace* world, ImageRepo* loader)
 {
 	this->name = name;
 	this->asset_dir = asset_dir;
@@ -27,8 +27,8 @@ GameChar::~GameChar()
 void GameChar::load_sprites()
 {
 	//TODO load sprites based on asset_dir
-	std::string base_sprite_fname = "IdleSlimeSouthTest-export";
-	for (int i = 1; i < 6; i++) {
+	std::string base_sprite_fname = "SmallTestCharacterWalkingAnimation";
+	for (int i = 1; i < 11; i++) {
 		std::string fpath = base_sprite_fname + std::to_string(i) + ".png";
 		SDL_Texture* tex = loader->loadTexture(fpath);
 		if (tex != NULL)
@@ -38,7 +38,7 @@ void GameChar::load_sprites()
 	}
 
 	//TEMPORARY
-	hitbox.width = SDL_QueryTexture(sprites[0], NULL, NULL, &(hitbox.width), &(hitbox.height));
+	SDL_QueryTexture(sprites[0], NULL, NULL, &(hitbox.width), &(hitbox.height));
 }
 
 //Move the centerpoint of the character to (x, y)
@@ -70,6 +70,9 @@ void GameChar::move_towards(int x, int y, float spd)
 	//get new location value by adding normalized displacement vector multiplied by movespeed
 	float new_x = this->loc.x + spd * (disp_x / disp_length);
 	float new_y = this->loc.y + spd * (disp_y / disp_length);
+
+	//DEBUG
+	//std::cout << "Move To: (" << new_x << ", " << new_y << ")" << std::endl;
 	
 	if (!world->check_collision_x(new_x, new_x + this->hitbox.width)) {
 		this->loc.x = new_x;
@@ -85,6 +88,8 @@ void GameChar::draw_character(SDL_Renderer* renderer)
 	SDL_Rect dstrect;
 	dstrect.x = (int)round(this->loc.x);
 	dstrect.y = (int)round(this->loc.y);
+	dstrect.w = 64; // hitbox.width * 3;
+	dstrect.h = 64; // hitbox.height * 3;
 
 	SDL_RenderCopy(renderer, sprites[0], NULL, &dstrect);
 }

@@ -5,7 +5,7 @@
 
 #include <SDL2/SDL_image.h>
 
-bool init_game(SDL_Window*& window, SDL_Renderer*& renderer, AssetLoader*& loader, std::string asset_dir, WorldSpace*& world, int window_width, int window_height)
+bool init_game(SDL_Window*& window, SDL_Renderer*& renderer, ImageRepo*& loader, std::string asset_dir, WorldSpace*& world, int window_width, int window_height)
 {
     //Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -32,11 +32,11 @@ bool init_game(SDL_Window*& window, SDL_Renderer*& renderer, AssetLoader*& loade
     //Instantiate asset loader
     if (!asset_dir.empty())
     {
-        loader = new AssetLoader(renderer, asset_dir);
+        loader = new ImageRepo(renderer, asset_dir);
     }
     else
     {
-        loader = new AssetLoader(renderer);
+        loader = new ImageRepo(renderer);
     }
 
     if (!loader->img_init_success) {

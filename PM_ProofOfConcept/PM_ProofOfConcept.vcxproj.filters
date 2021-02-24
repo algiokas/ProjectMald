@@ -30,7 +30,7 @@
     <ClInclude Include="header\GameChar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\AssetLoader.h">
+    <ClInclude Include="header\ImageRepo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +47,7 @@
     <ClCompile Include="src\GameChar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AssetLoader.cpp">
+    <ClCompile Include="src\ImageRepo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

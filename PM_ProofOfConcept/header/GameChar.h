@@ -6,7 +6,7 @@
 
 #include "WorldSpace.h"
 #include "Util.h"
-#include "AssetLoader.h"
+#include "ImageRepo.h"
 
 class WorldSpace;
 
@@ -18,12 +18,12 @@ class GameChar {
 	SDL_Surface* window_surface;
 	std::vector<SDL_Texture*> sprites;
 	WorldSpace* world;
-	AssetLoader* loader;
+	ImageRepo* loader;
 
 	void load_sprites();
 
 public:
-	GameChar(std::string name, std::string asset_dir, location init_loc, WorldSpace* world, AssetLoader* loader);
+	GameChar(std::string name, std::string asset_dir, location init_loc, WorldSpace* world, ImageRepo* loader);
 	~GameChar();
 	void move_to(float x, float y);
 	void move_towards(int x, int y, float spd);
