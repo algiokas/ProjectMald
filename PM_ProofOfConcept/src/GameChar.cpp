@@ -1,37 +1,44 @@
 #include "../header/GameChar.h"
+#include "../header/AssetLoader.h"
 
 #include <iostream>
 #include <cmath>
 
-GameChar::GameChar(std::string name, std::string asset_dir, location init_loc, rect hbox, WorldSpace* world)
+GameChar::GameChar(std::string name, std::string asset_dir, location init_loc, WorldSpace* world, AssetLoader* loader)
 {
 	this->name = name;
 	this->asset_dir = asset_dir;
 	this->loc = init_loc;
-	this->hitbox = hbox;
 	this->world = world;
+	this->loader = loader;
 
 	load_sprites();
 }
 
 GameChar::~GameChar()
 {
-	for (SDL_Surface* s : sprites)
+	for (SDL_Texture* s : sprites)
 	{
-		SDL_FreeSurface(s);
+		SDL_DestroyTexture(s);
+		s = NULL;
 	}
 }
 
 void GameChar::load_sprites()
 {
 	//TODO load sprites based on asset_dir
-	std::string fpath = "assets/" + asset_dir + "/Movement1.bmp";
-	SDL_Surface* sprite = SDL_LoadBMP(fpath.c_str());
-	if (sprite == NULL)
-	{
-		std::cerr << "Unable to load image " << fpath << "! SDL Error: " << SDL_GetError() << std::endl;
+	std::string base_sprite_fname = "IdleSlimeSouthTest-export";
+	for (int i = 1; i < 6; i++) {
+		std::string fpath = base_sprite_fname + std::to_string(i) + ".png";
+		SDL_Texture* tex = loader->loadTexture(fpath);
+		if (tex != NULL)
+		{
+			sprites.push_back(tex);
+		}
 	}
-	this->sprites.push_back(sprite);
+
+	//TEMPORARY
+	hitbox.width = SDL_QueryTexture(sprites[0], NULL, NULL, &(hitbox.width), &(hitbox.height));
 }
 
 //Move the centerpoint of the character to (x, y)
@@ -73,17 +80,11 @@ void GameChar::move_towards(int x, int y, float spd)
 }
 
 //Draw the character's current sprite state onto the destination surface
-void GameChar::draw_character(SDL_Surface* dest)
+void GameChar::draw_character(SDL_Renderer* renderer)
 {
-	SDL_Rect srcrect;
-	srcrect.x = 10;
-	srcrect.y = 6;
-	srcrect.w = hitbox.width;
-	srcrect.h = hitbox.height;
-
 	SDL_Rect dstrect;
 	dstrect.x = (int)round(this->loc.x);
 	dstrect.y = (int)round(this->loc.y);
 
-	SDL_BlitSurface(this->sprites[0], &srcrect, dest, &dstrect);
+	SDL_RenderCopy(renderer, sprites[0], NULL, &dstrect);
 }

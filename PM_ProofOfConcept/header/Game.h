@@ -4,7 +4,7 @@
 #include "WorldSpace.h"
 
 //Initialize SDL and create a window
-bool init_game(SDL_Window*& window, SDL_Surface*& surface, int window_width, int window_height);
+bool init_game(SDL_Window*& window, SDL_Renderer*& renderer, AssetLoader*& loader, std::string asset_dir, WorldSpace*& world, int window_width, int window_height);
 
 bool load_image(SDL_Surface*& imgSurface, const char* filepath);
 

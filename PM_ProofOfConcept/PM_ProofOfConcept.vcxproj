@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\AssetLoader.h" />
     <ClInclude Include="header\GameChar.h" />
     <ClInclude Include="header\Color.h" />
     <ClInclude Include="header\Game.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="header\WorldSpace.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AssetLoader.cpp" />
     <ClCompile Include="src\WorldSpace.cpp" />
     <ClCompile Include="src\GameChar.cpp" />
     <ClCompile Include="src\Game.cpp" />

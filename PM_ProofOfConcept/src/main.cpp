@@ -11,6 +11,7 @@
 #include "../header/Util.h"
 #include "../header/GameChar.h"
 #include "../header/WorldSpace.h"
+#include "../header/AssetLoader.h"
 
 //constants
 const int WINDOW_WIDTH = 640;
@@ -20,20 +21,17 @@ int main(int argc, char* argv[])
 {
 	//The window we'll be rendering to
 	SDL_Window *gWindow = NULL;
-	SDL_Surface* gWindowSurface = NULL;
+	SDL_Renderer* gRenderer = NULL;
+	AssetLoader* assetLoader = NULL;
+	WorldSpace* world = NULL;
 
 	location start_loc;
-	start_loc.x = 0;
-	start_loc.y = 0;
+	start_loc.x = 30;
+	start_loc.y = 30;
 
-	rect hit_box;
-	hit_box.width = 12;
-	hit_box.height = 10;
+	
 
-	WorldSpace* world = new WorldSpace(WINDOW_WIDTH, WINDOW_HEIGHT, 5);
-	GameChar* slime = new GameChar("Slime", "SlimeTest", start_loc, hit_box, world);
-
-	if (!init_game(gWindow, gWindowSurface, WINDOW_WIDTH, WINDOW_HEIGHT))
+	if (!init_game(gWindow, gRenderer, assetLoader, "", world, WINDOW_WIDTH, WINDOW_HEIGHT))
 	{
 		std::cerr << "Failed to initialize" << std::endl;
 	}
@@ -42,6 +40,9 @@ int main(int argc, char* argv[])
 		bool quit = false;
 		bool click = false;
 		SDL_Event e;
+
+		GameChar* slime = new GameChar("Slime", "SlimeTest", start_loc, world, assetLoader);
+
 		while (!quit)
 		{
 			while (SDL_PollEvent(&e) != 0)
@@ -63,12 +64,11 @@ int main(int argc, char* argv[])
 				SDL_GetMouseState(&mouse_x, &mouse_y);
 				slime->move_towards(mouse_x, mouse_y, 0.25);
 			}
-			SDL_FillRect(gWindowSurface, NULL, SDL_MapRGB(gWindowSurface->format, COLOR_BLACK.r, COLOR_BLACK.g, COLOR_BLACK.b));
-			slime->draw_character(gWindowSurface);
+			SDL_RenderClear(gRenderer);
+			slime->draw_character(gRenderer);
 			SDL_UpdateWindowSurface(gWindow);
 		}
-	}
-	
+	}	
 	close(gWindow, world);
 	return 0;
 }
