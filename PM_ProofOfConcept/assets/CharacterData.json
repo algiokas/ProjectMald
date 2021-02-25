@@ -9,7 +9,7 @@
         "Image": "IdleSlimeSouthTest"
     },
 
-        "vendorbob": {
+    "vendorbob": {
         "id": 2,
         "type": "vendor",
         "Name": "vendorbob",
@@ -18,7 +18,6 @@
             "ItemID": 4
         }
     },
-
 
     "goimbo": {
         "id": 3,

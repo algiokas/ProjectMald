@@ -1,21 +1,29 @@
 #include "../header/JsonUtils.h"
 
+#include "rapidjson/filereadstream.h"
+
+#include <cstdio>
+#include <string>
 #include <iostream>
-#include <fstream>
 
-using json = nlohmann::json;
+using namespace rapidjson;
 
-namespace fs = std::filesystem;
-
-json load_json(std::string filepath)
+Document load_json(std::string filepath)
 {
-	json j;
-	std::ifstream infile(filepath);
-	if (!infile.is_open())
+	FILE* fp;
+	Document jdoc;
+
+	fopen_s(&fp, filepath.c_str(), "rb");
+	if (!fp)
 	{
-		std::cerr << "Failed to open file: " << filepath << std::endl;
-		return j;
-	}	
-	infile >> j;
-	return j;
+		std::cerr << "Failed to open file: " << filepath << " load_json" << std::endl;
+		return jdoc;
+	}
+	char readBuffer[1024];
+	FileReadStream file_stream(fp, readBuffer, sizeof(readBuffer));
+
+	jdoc.ParseStream(file_stream);
+	fclose(fp);
+
+	return jdoc;	
 }

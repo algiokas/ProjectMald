@@ -26,6 +26,7 @@
     <ClInclude Include="header\JsonUtils.h" />
     <ClInclude Include="header\Util.h" />
     <ClInclude Include="header\WorldSpace.h" />
+    <ClInclude Include="src\main.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\JsonUtils.cpp" />

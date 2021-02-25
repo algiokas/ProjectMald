@@ -14,6 +14,7 @@ class WorldSpace
 	int height;
 	int margin;
 	std::vector<GameChar*> all_characters;
+	GameChar* player_character;
 	color bg_color;
 	SDL_Texture* bg_texture;
 	ImageRepo* img_repo;

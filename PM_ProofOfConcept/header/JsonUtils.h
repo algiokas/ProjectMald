@@ -1,5 +1,7 @@
 #pragma once
 
-#include <nlohmann/json.hpp>
+#include <string>
 
-nlohmann::json load_json(std::string filepath);
+#include <rapidjson/document.h>
+
+rapidjson::Document load_json(std::string filepath);
