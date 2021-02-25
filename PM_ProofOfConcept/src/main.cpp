@@ -11,7 +11,7 @@
 #include "../header/GameChar.h"
 #include "../header/WorldSpace.h"
 #include "../header/ImageRepo.h"
-#include "main.h"
+#include "../header/EventHandling.h"
 
 //constants
 const int WINDOW_WIDTH = 640;
@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 	ImageRepo* ImageRepo = NULL;
 	WorldSpace* world = NULL;
 
-	location start_loc;
+	point2d start_loc;
 	start_loc.x = 30;
 	start_loc.y = 30;
 
@@ -36,7 +36,6 @@ int main(int argc, char* argv[])
 	else
 	{
 		bool quit = false;
-		bool click = false;
 		SDL_Event e;
 
 		GameChar* goimbo = new GameChar("Goimbo", "SlimeTest", start_loc, world, ImageRepo);
@@ -45,48 +44,12 @@ int main(int argc, char* argv[])
 		{
 			while (SDL_PollEvent(&e) != 0)
 			{
-				handle_event(e, quit, click);
+				handle_event(e, world, quit);
 			}
-			//if (click) {
-			//	int mouse_x, mouse_y;
-			//	SDL_GetMouseState(&mouse_x, &mouse_y);
-			//	slime->move_towards(mouse_x, mouse_y, 0.25);
-			//}
+			world->update();
 			world->render();
 		}
 	}	
 	close(gWindow, world);
 	return 0;
-}
-
-void handle_keypress(SDL_Event& e, WorldSpace* world)
-{
-	SDL_Keycode asdf;
-	auto keydown = e.key;
-	switch (keydown.keysym.sym) {
-		case SDLK_UP:
-
-
-
-	}
-
-	SDL_KeyboardEvent test;
-}
-
-void handle_event(SDL_Event& e, bool& quit, bool& click)
-{
-	switch (e.type) {
-		case SDL_QUIT:
-			quit = true;
-			break;
-		case SDL_MOUSEBUTTONDOWN:
-			click = true;
-			break;
-		case SDL_MOUSEBUTTONUP:
-			click = false;
-			break;
-		case SDL_KEYDOWN:
-			handle_keypress(e);
-			break;
-	}
 }

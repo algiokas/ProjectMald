@@ -1,10 +1,22 @@
 #pragma once
 
-struct location
+struct point2d
 {
 	float x;
 	float y;
+
+	bool operator ==(const point2d& rhs) const
+	{
+		return this->x == rhs.x && this->y == rhs.y;
+	}
+
+	bool operator !=(const point2d& rhs) const
+	{
+		return !(*this == rhs);
+	}
 };
+
+
 
 struct rect
 {

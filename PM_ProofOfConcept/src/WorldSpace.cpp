@@ -44,12 +44,25 @@ bool WorldSpace::check_collision_y(float y1, float y2)
 	return (y1 < margin && y2 >= height - margin);
 }
 
+GameChar* WorldSpace::get_pc()
+{
+	return player_character;
+}
+
 void WorldSpace::add_character(GameChar* new_char)
 {
 	all_characters.push_back(new_char);
 
 	if (all_characters.size() == 1) {
 		player_character = all_characters[0];
+	}
+}
+
+void WorldSpace::update()
+{
+	for (auto c : all_characters)
+	{
+		c->update();
 	}
 }
 

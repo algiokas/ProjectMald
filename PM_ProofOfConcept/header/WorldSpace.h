@@ -26,6 +26,8 @@ public:
 	~WorldSpace();
 	bool check_collision_x(float x1, float x2);
 	bool check_collision_y(float y1, float y2);
+	GameChar* get_pc();
 	void add_character(GameChar* new_char);
+	void update();
 	void render();
 };

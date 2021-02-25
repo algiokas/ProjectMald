@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cmath>
 
-GameChar::GameChar(std::string name, std::string asset_dir, location init_loc, WorldSpace* world, ImageRepo* loader)
+GameChar::GameChar(std::string name, std::string asset_dir, point2d init_loc, WorldSpace* world, ImageRepo* loader)
 {
 	this->name = name;
 	this->asset_dir = asset_dir;
@@ -41,37 +41,52 @@ void GameChar::load_sprites()
 	SDL_QueryTexture(sprites[0], NULL, NULL, &(hitbox.width), &(hitbox.height));
 }
 
+point2d GameChar::centroid()
+{
+	return point2d();
+}
+
+point2d Centroid()
+{
+	point2d centroid;
+
+}
+
 //Move the centerpoint of the character to (x, y)
 void GameChar::move_to(float x, float y)
 {
-	float new_x = x - (hitbox.width / 2.0f);
-	if (new_x > 5 && new_x < (640 ))
-	this->loc.x =
+	this->loc.x = x - (hitbox.width / 2.0f);
 	this->loc.y = y - (hitbox.height / 2.0f);
 
 	//TODO add collision/bounds checking
 }
 
 //Move in the direction of the point (x, y) with steps of size [spd]
-void GameChar::move_towards(int x, int y, float spd)
+void GameChar::move_towards(float x, float y, float spd)
 {
-	//TODO add custom step length, either via parameter or using a class field
+	//location of the hitbox centroid relative to the top left corner
+	point2d centroid;
+	centroid.x = hitbox.width / 2.0f;
+	centroid.y = hitbox.height / 2.0f;
 
 	//calculate displacement vector
-	int disp_x = x - (int)round(this->loc.x + (hitbox.width / 2.0f));
-	int disp_y = y - (int)round(this->loc.y + (hitbox.height / 2.0f));
+	float disp_x = x - (this->loc.x + centroid.x);
+	float disp_y = y - (this->loc.y + centroid.y);
 
 	//Get length of displacement vector
 	float disp_length = (float)sqrt((disp_x * disp_x) + (disp_y * disp_y));
-	if (disp_length < 1) {
-		return;
+
+	float new_x, new_y;
+	if (disp_length <= spd) {
+		new_x = x - centroid.x;
+		new_y = y - centroid.y;
 	}
-
-	//get new location value by adding normalized displacement vector multiplied by movespeed
-	float new_x = this->loc.x + spd * (disp_x / disp_length);
-	float new_y = this->loc.y + spd * (disp_y / disp_length);
-
-	//DEBUG
+	else
+	{
+		//get new location value by adding normalized displacement vector multiplied by movespeed
+		new_x = this->loc.x + spd * (disp_x / disp_length);
+		new_y = this->loc.y + spd * (disp_y / disp_length);
+	}
 	//std::cout << "Move To: (" << new_x << ", " << new_y << ")" << std::endl;
 	
 	if (!world->check_collision_x(new_x, new_x + this->hitbox.width)) {
@@ -79,6 +94,19 @@ void GameChar::move_towards(int x, int y, float spd)
 	}
 	if (!world->check_collision_y(new_y, new_y + this->hitbox.height)) {
 		this->loc.y = new_y;
+	}
+}
+
+void GameChar::set_destination(point2d d)
+{
+	dest = d;
+}
+
+void GameChar::update()
+{
+	if (loc != dest)
+	{
+		move_towards(dest.x, dest.y, 0.5);
 	}
 }
 
