@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\Animation.h" />
     <ClInclude Include="header\EventHandling.h" />
     <ClInclude Include="header\ImageRepo.h" />
     <ClInclude Include="header\GameChar.h" />

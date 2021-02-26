@@ -1,6 +1,4 @@
 #include "../header/GameChar.h"
-#include "../header/ImageRepo.h"
-#include "../header/JsonRepo.h"
 
 #include <iostream>
 #include <cmath>
@@ -14,9 +12,16 @@ GameChar::~GameChar()
 	}
 }
 
-GameChar* GameChar::CreateCharacter(std::string name, int id, vec2d init_loc, WorldSpace* world, JsonRepo* json_repo, ImageRepo* img_repo)
+GameChar* GameChar::CreateCharacter(std::string name, int id, vec2d init_loc, WorldSpace* world, 
+									JsonRepo* json_repo, ImageRepo* img_repo)
 {
-	return nullptr;
+	auto char_data = json_repo->get_char_data();
+	for (auto it = char_data->Begin(); it != char_data->End(); it++)
+	{
+
+	}
+
+	return NULL;
 }
 
 void GameChar::load_sprites()

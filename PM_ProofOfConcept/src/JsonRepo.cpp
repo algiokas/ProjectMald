@@ -69,28 +69,110 @@ rapidjson::Document* JsonRepo::get_map_data()
 
 
 
-std::string JsonRepo::GetString(Document* doc, std::string key, std::string default_value)
+std::string JsonRepo::GetString(Value* jnode, std::string key, std::string default_value)
 {
-	auto it = doc->FindMember(key.c_str());
-	if (it != doc->MemberEnd())
-		return it->value.GetString();
+	auto it = jnode->FindMember(key.c_str());
+	if (it != jnode->MemberEnd())
+	{
+		if (it->value.IsString())
+		{
+			return it->value.GetString();
+		}
+		std::cerr << "JSON value [" << key << "] found, but value is not type [string]" << std::endl;
+	}
+	else
+	{
+		std::cerr << "JSON value [" << key << "] not found" << std::endl;
+	}
 	return default_value;
 }
 
-int JsonRepo::GetInt(Document* doc, std::string key, int default_value)
+int JsonRepo::GetInt(Value* jnode, std::string key, int default_value)
 {
-	auto it = doc->FindMember(key.c_str());
-	if (it != doc->MemberEnd())
-		return it->value.GetInt();
+	auto it = jnode->FindMember(key.c_str());
+	if (it != jnode->MemberEnd())
+	{
+		if (it->value.IsInt())
+		{
+			return it->value.GetInt();
+		}
+		std::cerr << "JSON value [" << key << "] found, but value is not type [int]" << std::endl;
+	}
+	else
+	{
+		std::cerr << "JSON value [" << key << "] not found" << std::endl;
+	}
 	return default_value;
 }
 
-float JsonRepo::GetFloat(Document* doc, std::string key, float default_value)
+float JsonRepo::GetFloat(Value* jnode, std::string key, float default_value)
 {
-	auto it = doc->FindMember(key.c_str());
-	if (it != doc->MemberEnd())
-		return it->value.GetFloat();
+	auto it = jnode->FindMember(key.c_str());
+	if (it != jnode->MemberEnd())
+	{
+		if (it->value.IsFloat())
+		{
+			return it->value.GetFloat();
+		}
+		std::cerr << "JSON value [" << key << "] found, but value is not type [float]" << std::endl;
+	}
+	else
+	{
+		std::cerr << "JSON value [" << key << "] not found" << std::endl;
+	}
 	return default_value;
+}
+
+Value* JsonRepo::GetObject(Value* jnode, std::string key)
+{
+	auto it = jnode->FindMember(key.c_str());
+	if (it != jnode->MemberEnd())
+	{
+		if (it->value.IsObject())
+		{
+			Value v = it->value.GetObject();
+			return &v;
+		}
+		std::cerr << "JSON value [" << key << "] found, but value is not type [Object]" << std::endl;
+	}
+	else
+	{
+		std::cerr << "JSON value [" << key << "] not found" << std::endl;
+	}
+	return NULL;
+}
+
+JArray* JsonRepo::GetArray(Value* jnode, std::string key)
+{
+	auto it = jnode->FindMember(key.c_str());
+	if (it != jnode->MemberEnd())
+	{
+		if (it->value.IsArray())
+		{
+			JArray arr = it->value.GetArray();
+			return &arr;
+		}
+		std::cerr << "JSON value [" << key << "] found, but value is not type [JArray]" << std::endl;
+	}
+	else
+	{
+		std::cerr << "JSON value [" << key << "] not found" << std::endl;
+	}
+	return NULL;
+}
+
+Value* JsonRepo::GetById(Value* jnode, int id)
+{
+	for (auto it = jnode->Begin(); it != jnode->End(); it++)
+	{
+		auto sub_it = it->FindMember("ID");
+		if (sub_it != it->MemberEnd() && sub_it->value.GetInt() == id) {
+			Value obj = it->GetObject();
+			return &obj;
+		}			
+	}
+	std::cerr << "JSON Value with ID = [" << id << "] not found" << std::endl;
+	return NULL;
 }
 
 void JsonRepo::preload()

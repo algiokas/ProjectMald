@@ -7,22 +7,24 @@
 #include "WorldSpace.h"
 #include "Geometry.h"
 #include "ImageRepo.h"
+#include "JsonRepo.h"
 
 class WorldSpace;
 
 class GameChar {
 	std::string name;
-	int id;
+	int type_id;
 	vec2d loc;
 	vec2d dest;
 	vec2d centroid;
 	rect hitbox;
+	SDL_Texture* static_sprite;
 	std::vector<SDL_Texture*> sprites;
 	WorldSpace* world;
 
 	void load_sprites();
-	GameChar(std::string name, int id, vec2d init_loc, WorldSpace* world) :
-		name(name), id(id), loc(init_loc), world(world) {}
+	GameChar(std::string name, int type_id, vec2d init_loc, WorldSpace* world) :
+		name(name), type_id(type_id), loc(init_loc), world(world) {}
 
 public:
 	
