@@ -7,7 +7,7 @@
 
 #include "../header/Color.h"
 #include "../header/Game.h"
-#include "../header/Util.h"
+#include "../header/Geometry.h"
 #include "../header/GameChar.h"
 #include "../header/WorldSpace.h"
 #include "../header/ImageRepo.h"
@@ -25,9 +25,7 @@ int main(int argc, char* argv[])
 	ImageRepo* ImageRepo = NULL;
 	WorldSpace* world = NULL;
 
-	point2d start_loc;
-	start_loc.x = 30;
-	start_loc.y = 30;
+	auto start_loc = vec2d(30, 30);
 
 	if (!init_game(gWindow, gRenderer, ImageRepo, "", world, WINDOW_WIDTH, WINDOW_HEIGHT))
 	{

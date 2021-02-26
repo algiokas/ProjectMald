@@ -24,6 +24,8 @@ class WorldSpace
 public:
 	WorldSpace(int width, int height, int margin, ImageRepo* img_repo, SDL_Renderer* renderer);
 	~WorldSpace();
+
+	//Check the worldspace for collisions (with other objects/characters or with the map)
 	bool check_collision_x(float x1, float x2);
 	bool check_collision_y(float y1, float y2);
 	GameChar* get_pc();

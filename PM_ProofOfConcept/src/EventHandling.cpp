@@ -23,9 +23,7 @@ void handle_event(SDL_Event& e, WorldSpace* world, bool& quit)
 
 void handle_mouseclick(SDL_Event& e, WorldSpace* world)
 {
-	point2d click_loc;
-	click_loc.x = (float)e.button.x;
-	click_loc.y = (float)e.button.y;
+	vec2d click_loc((float)e.button.x, (float)e.button.y);
 
 	switch (e.button.button)
 	{
@@ -40,12 +38,12 @@ void handle_mouseclick(SDL_Event& e, WorldSpace* world)
 	}
 }
 
-void handle_leftclick(point2d click_loc, WorldSpace* world)
+void handle_leftclick(vec2d click_loc, WorldSpace* world)
 {
 	world->get_pc()->set_destination(click_loc);
 }
 
-void handle_rightclick(point2d click_loc, WorldSpace* world)
+void handle_rightclick(vec2d click_loc, WorldSpace* world)
 {
 	handle_leftclick(click_loc, world); //TODO implement unique right click logic
 }

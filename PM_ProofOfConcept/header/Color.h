@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 struct color {
 	int r;
 	int g;

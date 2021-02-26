@@ -25,10 +25,11 @@
     <ClInclude Include="header\Color.h" />
     <ClInclude Include="header\Game.h" />
     <ClInclude Include="header\JsonUtils.h" />
-    <ClInclude Include="header\Util.h" />
+    <ClInclude Include="header\Geometry.h" />
     <ClInclude Include="header\WorldSpace.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Geometry.cpp" />
     <ClCompile Include="src\EventHandling.cpp" />
     <ClCompile Include="src\JsonUtils.cpp" />
     <ClCompile Include="src\ImageRepo.cpp" />
