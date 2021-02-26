@@ -12,21 +12,22 @@ class WorldSpace;
 
 class GameChar {
 	std::string name;
-	std::string asset_dir;
+	int id;
 	vec2d loc;
 	vec2d dest;
 	vec2d centroid;
 	rect hitbox;
-	SDL_Surface* window_surface;
 	std::vector<SDL_Texture*> sprites;
 	WorldSpace* world;
-	ImageRepo* image_repo;
 
 	void load_sprites();
+	GameChar(std::string name, int id, vec2d init_loc, WorldSpace* world) :
+		name(name), id(id), loc(init_loc), world(world) {}
 
 public:
-	GameChar(std::string name, std::string asset_dir, vec2d init_loc, WorldSpace* world, ImageRepo* loader);
+	
 	~GameChar();
+	static GameChar* CreateCharacter(std::string name, int id, vec2d init_loc, WorldSpace* world, JsonRepo* json_repo, ImageRepo* img_repo);
 	void move_to(vec2d d);
 	void move_towards(vec2d d, float spd);
 	void set_destination(vec2d d);

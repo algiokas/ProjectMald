@@ -1,19 +1,9 @@
 #include "../header/GameChar.h"
 #include "../header/ImageRepo.h"
+#include "../header/JsonRepo.h"
 
 #include <iostream>
 #include <cmath>
-
-GameChar::GameChar(std::string name, std::string asset_dir, vec2d init_loc, WorldSpace* world, ImageRepo* image_repo)
-{
-	this->name = name;
-	this->asset_dir = asset_dir;
-	this->loc = init_loc;
-	this->world = world;
-	this->image_repo = image_repo;
-
-	load_sprites();
-}
 
 GameChar::~GameChar()
 {
@@ -24,9 +14,15 @@ GameChar::~GameChar()
 	}
 }
 
+GameChar* GameChar::CreateCharacter(std::string name, int id, vec2d init_loc, WorldSpace* world, JsonRepo* json_repo, ImageRepo* img_repo)
+{
+	return nullptr;
+}
+
 void GameChar::load_sprites()
 {
-	//TODO load sprites based on asset_dir
+	load_json()
+
 	std::string base_sprite_fname = "Characters/Goimbo/SmallTestCharacterWalkingAnimation";
 	for (int i = 1; i < 11; i++) {
 		std::string fpath = base_sprite_fname + std::to_string(i) + ".png";

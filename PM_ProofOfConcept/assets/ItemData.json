@@ -1,11 +1,15 @@
-[
-     "fists": {
-        "id": 4,
+{
+    "fists": {
+        "ID": 4,
         "type": "item",
         "Name": "fists",
-        "BuyValue": 1,
-        "SellValue": 1,
-        "ReqPhysAttack": 1,
-        "Strength": 1
+        "ItemStats": {
+            "BuyValue": 1,
+            "SellValue": 1
+        },
+        "ItemCombatStats": {
+            "ReqPhysAttack": 1,
+            "Strength": 1
+        }
     }
-]
+}
