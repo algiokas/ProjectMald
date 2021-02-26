@@ -1,32 +1,101 @@
 {
-    "blob": {
-        "id": 1,
-        "type": "enemy",
-        "name": "blob",
-        "Hp": 2,
-        "Physdefense": 1,
-        "Physattack": 1,
-        "Image": "IdleSlimeSouthTest"
+  "Goimbo": {
+    "id": 3,
+    "type": "player",
+    "Movespeed": 1.0,
+    "CombatStats": {
+      "MaxHP": 4,
+      "Physattack": 5.0,
+      "Physdefense": 5.0
     },
-
-    "vendorbob": {
-        "id": 2,
-        "type": "vendor",
-        "Name": "vendorbob",
-        "Image": "VendorIdleTest-export1",
-        "Inventory": {
-            "ItemID": 4
-        }
+    "Inventory": {
+      "ItemIDs": [
+        "4"
+      ]
     },
-
-    "goimbo": {
-        "id": 3,
-        "type": "player",
-        "HP": 4,
-        "Physattack": 1,
-        "Physdefense": 1,
-        "Image": "TestCharacterWalkingAnimation1",
-        "Inventory": {
-        }
+    "Staticimage": "SmallTestCharacterWalkingAnimation1",
+    "Animations": {
+      "Idle": {
+        "Cyclespeed": 1.0,
+        "Sprites": [
+          "SmallTestCharacterWalkingAnimation1",
+          "SmallTestCharacterWalkingAnimation2"
+        ]
+      },
+      "WalkSouth": {
+        "Cyclespeed": 2.0,
+        "Sprites": [
+            "GoimboWalkSouth1",
+            "GoimboWalkSouth2",
+            "GoimboWalkSouth1",
+            "GoimboWalkSouth3"
+        ]
+      },
+      "WalkEast": {
+        "Cyclespeed": 2.0,
+        "Sprites": [
+            "GoimboWalkEast1",
+            "GoimboWalkEast2",
+            "GoimboWalkEast3"
+        ]
+      },
+      "WalkNorth": {
+        "Cyclespeed": 2.0,
+        "Sprites": [
+            "GoimboWalkNorth1",
+            "GoimboWalkNorth2",
+            "GoimboWalkNorth1",
+            "GoimboWalkNorth3"
+        ]
+      },
+      "WalkWest": {
+        "Cyclespeed": 2.0,
+        "Sprites": [
+            "GoimboWalkWest1",
+            "GoimboWalkWest2",
+            "GoimboWalkWest3"
+        ]
+      }
     }
+  },
+
+  "Blob": {
+    "ID": 1,
+    "Type": "enemy",
+    "Movespeed": 0.5,
+    "CombatStats": {
+      "MaxHP": 2,
+      "Physdefense": 1,
+      "Physattack": 2
+    },
+    "Inventory": {
+      "ItemIDs": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    "Staticimage": "SmallSlime",
+    "Animations": {
+      "Idle": {
+        "Sprites": [
+          "SlimeIdleSouth1",
+          "SlimeIdleSouth2"
+        ]
+      }
+    }
+  },
+
+  "VendorBob": {
+    "ID": 2,
+    "Type": "vendor",
+    "Inventory": {
+      "ItemIDs": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    "Staticimage": "VendorIdleTest-export1"
+  }
 }
