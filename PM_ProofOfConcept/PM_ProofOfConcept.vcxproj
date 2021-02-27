@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\Animation.h" />
+    <ClInclude Include="header\AnimationRepo.h" />
     <ClInclude Include="header\EventHandling.h" />
     <ClInclude Include="header\ImageRepo.h" />
     <ClInclude Include="header\GameChar.h" />
@@ -30,6 +30,7 @@
     <ClInclude Include="header\WorldSpace.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AnimationRepo.cpp" />
     <ClCompile Include="src\JsonRepo.cpp" />
     <ClCompile Include="src\Geometry.cpp" />
     <ClCompile Include="src\EventHandling.cpp" />

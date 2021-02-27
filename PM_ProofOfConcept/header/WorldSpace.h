@@ -21,9 +21,9 @@ class WorldSpace
 	SDL_Renderer* renderer;
 
 	WorldSpace(int width, int height, int margin, float speedmult, color bg_color, SDL_Texture* bg_texture,SDL_Renderer* renderer) :
-		width(width), height(height), margin(margin), speedmult(speedmult), bg_color(bg_color), bg_texture(bg_texture), renderer(renderer) {}
-	
-	void init();
+		width(width), height(height), margin(margin), speedmult(speedmult), 
+		bg_color(bg_color), bg_texture(bg_texture), renderer(renderer), player_character(NULL) {}
+
 public:
 	~WorldSpace();
 

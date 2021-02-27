@@ -3,43 +3,24 @@
 #include <iostream>
 #include <cmath>
 
-GameChar::~GameChar()
-{
-	for (SDL_Texture* s : sprites)
-	{
-		SDL_DestroyTexture(s);
-		s = NULL;
-	}
-}
-
 GameChar* GameChar::CreateCharacter(std::string name, int id, vec2d init_loc, WorldSpace* world, 
 									JsonRepo* json_repo, ImageRepo* img_repo)
 {
-	auto char_data = json_repo->get_char_data();
-	for (auto it = char_data->Begin(); it != char_data->End(); it++)
+	std::string t_name;
+	auto all_char_data = json_repo->get_char_data();
+	auto char_template = json_repo->GetById(all_char_data, id, &t_name);
+	if (!char_template.IsNull())
 	{
-
+		char_template
 	}
 
 	return NULL;
 }
 
-void GameChar::load_sprites()
+void GameChar::load_sprites(ImageRepo* img_repo, rapidjson::Value char_template)
 {
-	load_json()
+	std::string static_img_fname = JsonRepo::GetString(&char_template, "StaticImage", "CHARACTER_PH");
 
-	std::string base_sprite_fname = "Characters/Goimbo/SmallTestCharacterWalkingAnimation";
-	for (int i = 1; i < 11; i++) {
-		std::string fpath = base_sprite_fname + std::to_string(i) + ".png";
-		SDL_Texture* tex = image_repo->loadTexture(fpath);
-		if (tex != NULL)
-		{
-			sprites.push_back(tex);
-		}
-	}
-
-	//TEMPORARY
-	SDL_QueryTexture(sprites[0], NULL, NULL, &(hitbox.width), &(hitbox.height));
 
 	if (hitbox.width > 0 && hitbox.height > 0)
 	{

@@ -29,10 +29,10 @@ WorldSpace* WorldSpace::CreateWorld(JsonRepo* json_repo, ImageRepo* img_repo, SD
 	margin = JsonRepo::GetInt(world_data, "Margin", 5);
 	speedmult = JsonRepo::GetFloat(world_data, "Speedmult", 0.1);
 	auto dims = JsonRepo::GetObject(world_data, "Dimensions");
-	if (dims != NULL)
+	if (dims.IsNull())
 	{
-		width = JsonRepo::GetInt(dims, "width", 0);
-		height = JsonRepo::GetInt(dims, "height", 0);
+		width = JsonRepo::GetInt(&dims, "width", 0);
+		height = JsonRepo::GetInt(&dims, "height", 0);
 	}
 	else
 	{
@@ -54,33 +54,30 @@ WorldSpace* WorldSpace::CreateWorld(JsonRepo* json_repo, ImageRepo* img_repo, SD
 
 	WorldSpace* brave_new_world = new WorldSpace(width, height, margin, speedmult, bg_color, bg_img, renderer);
 
-	JArray* c_array = JsonRepo::GetArray(world_data, "Characters");
-	if (c_array != NULL)
+	JArray c_array = JsonRepo::GetArray(world_data, "Characters");
+	for (auto arr_itr = c_array.Begin(); arr_itr != c_array.End(); arr_itr++)
 	{
-		for (auto arr_itr = c_array->Begin(); arr_itr != c_array->End(); arr_itr++)
+		if (arr_itr->IsObject())
 		{
-			if (arr_itr->IsObject())
-			{
-				Value char_data = arr_itr->GetObject();
-				std::string t_name = JsonRepo::GetString(&char_data, "Name", "");
-				int t_id = JsonRepo::GetInt(&char_data, "ID", -1);
-				JArray* t_loc = JsonRepo::GetArray(&char_data, "Location");
+			Value char_data = arr_itr->GetObject();
+			std::string t_name = JsonRepo::GetString(&char_data, "Name", "");
+			int t_id = JsonRepo::GetInt(&char_data, "ID", -1);
+			JArray t_loc = JsonRepo::GetArray(&char_data, "Location");
 
-				vec2d new_loc(0.0, 0.0);
-				if (t_loc != NULL && !(*t_loc).Empty())
+			vec2d new_loc(0.0, 0.0);
+			if (t_loc.Size() > 0)
+			{
+				if (t_loc[0].IsFloat())
 				{
-					if ((*t_loc)[0].IsFloat())
-					{
-						new_loc.set_x((*t_loc)[0].GetFloat());
-					}
-					if (t_loc->Capacity() > 1 && (*t_loc)[1].IsFloat())
-					{
-						new_loc.set_y((*t_loc)[1].GetFloat());
-					}
+					new_loc.set_x(t_loc[0].GetFloat());
 				}
-				GameChar* t_char = GameChar::CreateCharacter(t_name, t_id, new_loc, brave_new_world, json_repo, img_repo);
-				brave_new_world->add_character(t_char);
+				if (t_loc.Size() > 1 && t_loc[1].IsFloat())
+				{
+					new_loc.set_y(t_loc[1].GetFloat());
+				}
 			}
+			GameChar* t_char = GameChar::CreateCharacter(t_name, t_id, new_loc, brave_new_world, json_repo, img_repo);
+			brave_new_world->add_character(t_char);
 		}
 	}
 	return brave_new_world;

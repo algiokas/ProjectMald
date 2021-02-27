@@ -10,10 +10,11 @@ JsonRepo::~JsonRepo()
 {
 	//loop over map values and delete the documents by pointer
 	std::map<std::string, rapidjson::Document*>::iterator it;
-	for (it = GameData.begin(); it != GameData.end(); it++)
+	for (it = json_cache.begin(); it != json_cache.end(); it++)
 	{
 		delete it->second;
 	}
+	json_cache.clear();
 }
 
 rapidjson::Document* JsonRepo::load_json(std::string filepath)
@@ -38,8 +39,9 @@ rapidjson::Document* JsonRepo::load_json(std::string filepath)
 
 rapidjson::Document* JsonRepo::get_game_data(std::string filename)
 {
-	if (GameData.find(filename) == GameData.end())
+	if (json_cache.find(filename) == json_cache.end())
 	{
+		//TODO - centralize location of assets directory data
 		std::string fpath = ASSETS_DIR + filename + JSON_EXT;
 		auto jdoc = load_json(fpath);
 		if (jdoc->HasParseError())
@@ -47,9 +49,9 @@ rapidjson::Document* JsonRepo::get_game_data(std::string filename)
 			std::cerr << "JSON PARSE ERROR: Unable to parse " << fpath << std::endl;
 			return NULL;
 		}
-		GameData.insert(std::make_pair(filename, jdoc));
+		json_cache.insert(std::make_pair(filename, jdoc));
 	}
-	return GameData[filename];
+	return json_cache[filename];
 }
 
 rapidjson::Document* JsonRepo::get_char_data()
@@ -123,15 +125,14 @@ float JsonRepo::GetFloat(Value* jnode, std::string key, float default_value)
 	return default_value;
 }
 
-Value* JsonRepo::GetObject(Value* jnode, std::string key)
+Value JsonRepo::GetObject(Value* jnode, std::string key)
 {
 	auto it = jnode->FindMember(key.c_str());
 	if (it != jnode->MemberEnd())
 	{
 		if (it->value.IsObject())
 		{
-			Value v = it->value.GetObject();
-			return &v;
+			return it->value.GetObject();
 		}
 		std::cerr << "JSON value [" << key << "] found, but value is not type [Object]" << std::endl;
 	}
@@ -139,18 +140,17 @@ Value* JsonRepo::GetObject(Value* jnode, std::string key)
 	{
 		std::cerr << "JSON value [" << key << "] not found" << std::endl;
 	}
-	return NULL;
+	return Value();
 }
 
-JArray* JsonRepo::GetArray(Value* jnode, std::string key)
+JArray JsonRepo::GetArray(Value* jnode, std::string key)
 {
 	auto it = jnode->FindMember(key.c_str());
 	if (it != jnode->MemberEnd())
 	{
 		if (it->value.IsArray())
 		{
-			JArray arr = it->value.GetArray();
-			return &arr;
+			return it->value.GetArray();
 		}
 		std::cerr << "JSON value [" << key << "] found, but value is not type [JArray]" << std::endl;
 	}
@@ -158,21 +158,22 @@ JArray* JsonRepo::GetArray(Value* jnode, std::string key)
 	{
 		std::cerr << "JSON value [" << key << "] not found" << std::endl;
 	}
-	return NULL;
+	
+	return Value(kArrayType).GetArray();
 }
 
-Value* JsonRepo::GetById(Value* jnode, int id)
+
+Value JsonRepo::GetById(Value* jnode, int id, std::string* name = NULL)
 {
 	for (auto it = jnode->Begin(); it != jnode->End(); it++)
 	{
 		auto sub_it = it->FindMember("ID");
 		if (sub_it != it->MemberEnd() && sub_it->value.GetInt() == id) {
-			Value obj = it->GetObject();
-			return &obj;
+			return it->GetObject();
 		}			
 	}
 	std::cerr << "JSON Value with ID = [" << id << "] not found" << std::endl;
-	return NULL;
+	return Value();
 }
 
 void JsonRepo::preload()
@@ -181,37 +182,3 @@ void JsonRepo::preload()
 	get_item_data();
 	get_map_data();
 }
-
-//GameDataContainer::GameDataContainer(rapidjson::Document* root)
-//{
-//	this->root = root;
-//}
-//
-//std::string GameDataContainer::get_string(std::string key)
-//{
-//	return std::string();
-//}
-//
-//int GameDataContainer::get_int(std::string key)
-//{
-//	return 0;
-//}
-//
-//float GameDataContainer::get_float(std::string key)
-//{
-//	return 0.0f;
-//}
-//
-//rapidjson::Document GameDataContainer::get_object(std::string key)
-//{
-//	if (root->HasMember(key.c_str()))
-//	{
-//		auto j_object = root->GetObject()
-//	}
-//	return rapidjson::Document();
-//}
-//
-//T[] GameDataContainer::get_array<T>(std::string key)
-//{
-//	return rapidjson::Document();
-//}
