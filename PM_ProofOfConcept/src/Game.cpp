@@ -5,7 +5,28 @@
 
 #include <SDL2/SDL_image.h>
 
-bool init_game(SDL_Window*& window, SDL_Renderer*& renderer, ImageRepo*& img_repo, std::string asset_dir, WorldSpace*& world, int window_width, int window_height)
+//TODO - move game settings to its own repo with caching
+struct gamesettings
+{
+    std::string window_name;
+    int window_width;
+    int window_height;
+};
+
+gamesettings load_settings(JsonRepo* json_repo)
+{
+    gamesettings settings;
+
+    Document* settings_doc = json_repo->get_game_settings();
+    settings.window_name = json_repo->get_string(settings_doc, "Window_Name", "[DEFAULT WINDOW NAME]");
+    settings.window_width = json_repo->get_int(settings_doc, "Window_Width", 640);
+    settings.window_height = json_repo->get_int(settings_doc, "Window_Height", 480);
+    
+    return settings;
+}
+
+
+bool init_game(SDL_Window*& window, SDL_Renderer*& renderer, ImageRepo*& img_repo, JsonRepo*& json_repo, WorldSpace*& world)
 {
     //Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -14,8 +35,12 @@ bool init_game(SDL_Window*& window, SDL_Renderer*& renderer, ImageRepo*& img_rep
         return false;
     }
 
+    json_repo = new JsonRepo();
+    gamesettings settings = load_settings(json_repo);
+
     //Create a window
-    window = SDL_CreateWindow("Project Mald - PROOF OF CONCEPT", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow(settings.window_name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
+                            settings.window_width, settings.window_height, SDL_WINDOW_SHOWN);
     if (window == NULL)
     {
         std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
@@ -29,38 +54,14 @@ bool init_game(SDL_Window*& window, SDL_Renderer*& renderer, ImageRepo*& img_rep
         return false;
     }
 
-    //Instantiate asset loader
-    if (!asset_dir.empty())
-    {
-        img_repo = new ImageRepo(renderer, asset_dir);
-    }
-    else
-    {
-        img_repo = new ImageRepo(renderer);
-    }
-
+    img_repo = new ImageRepo(renderer);
     if (!img_repo->img_init_success) {
         return false;
-    }  
+    }
 
-    world = new WorldSpace(window_width, window_height, 5, img_repo, renderer);
+    world = WorldSpace::CreateWorld(json_repo, img_repo, renderer);
 
     return true;
-}
-
-bool load_image(SDL_Surface*& imgSurface, const char* filepath)
-{
-	//Loading success flag
-	bool success = true;
-
-	//Load splash image
-    imgSurface = SDL_LoadBMP(filepath);
-	if (imgSurface == NULL)
-	{
-        std::cerr << "Unable to load image " << filepath << "! SDL Error: " << SDL_GetError() << std::endl;
-		success = false;
-	}
-	return success;
 }
 
 void close(SDL_Window* window, WorldSpace* world)

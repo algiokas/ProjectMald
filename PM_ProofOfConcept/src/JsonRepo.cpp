@@ -54,6 +54,11 @@ rapidjson::Document* JsonRepo::get_game_data(std::string filename)
 	return json_cache[filename];
 }
 
+Document* JsonRepo::get_game_settings()
+{
+	return get_game_data("Settings");
+}
+
 rapidjson::Document* JsonRepo::get_char_data()
 {
 	return get_game_data("CharacterData");
@@ -71,7 +76,9 @@ rapidjson::Document* JsonRepo::get_map_data()
 
 
 
-std::string JsonRepo::GetString(Value* jnode, std::string key, std::string default_value)
+
+
+std::string JsonRepo::get_string(Value* jnode, std::string key, std::string default_value)
 {
 	auto it = jnode->FindMember(key.c_str());
 	if (it != jnode->MemberEnd())
@@ -89,7 +96,7 @@ std::string JsonRepo::GetString(Value* jnode, std::string key, std::string defau
 	return default_value;
 }
 
-int JsonRepo::GetInt(Value* jnode, std::string key, int default_value)
+int JsonRepo::get_int(Value* jnode, std::string key, int default_value)
 {
 	auto it = jnode->FindMember(key.c_str());
 	if (it != jnode->MemberEnd())
@@ -107,7 +114,7 @@ int JsonRepo::GetInt(Value* jnode, std::string key, int default_value)
 	return default_value;
 }
 
-float JsonRepo::GetFloat(Value* jnode, std::string key, float default_value)
+float JsonRepo::get_float(Value* jnode, std::string key, float default_value)
 {
 	auto it = jnode->FindMember(key.c_str());
 	if (it != jnode->MemberEnd())
@@ -125,7 +132,7 @@ float JsonRepo::GetFloat(Value* jnode, std::string key, float default_value)
 	return default_value;
 }
 
-Value JsonRepo::GetObject(Value* jnode, std::string key)
+Value JsonRepo::get_jobject(Value* jnode, std::string key)
 {
 	auto it = jnode->FindMember(key.c_str());
 	if (it != jnode->MemberEnd())
@@ -143,7 +150,7 @@ Value JsonRepo::GetObject(Value* jnode, std::string key)
 	return Value();
 }
 
-JArray JsonRepo::GetArray(Value* jnode, std::string key)
+JArray JsonRepo::get_jarray(Value* jnode, std::string key)
 {
 	auto it = jnode->FindMember(key.c_str());
 	if (it != jnode->MemberEnd())
@@ -163,14 +170,19 @@ JArray JsonRepo::GetArray(Value* jnode, std::string key)
 }
 
 
-Value JsonRepo::GetById(Value* jnode, int id, std::string* name = NULL)
+Value JsonRepo::get_by_id(Value* jnode, int id, std::string* name)
 {
-	for (auto it = jnode->Begin(); it != jnode->End(); it++)
+	for (auto it = jnode->MemberBegin(); it != jnode->MemberEnd(); it++)
 	{
-		auto sub_it = it->FindMember("ID");
-		if (sub_it != it->MemberEnd() && sub_it->value.GetInt() == id) {
-			return it->GetObject();
-		}			
+		if (it->value.IsObject())
+		{
+			*name = it->name.GetString();
+			auto obj = it->value.GetObject();
+			auto sub_it = obj.FindMember("ID");
+			if (sub_it != obj.MemberEnd() && sub_it->value.GetInt() == id) {
+				return obj;
+			}
+		}	
 	}
 	std::cerr << "JSON Value with ID = [" << id << "] not found" << std::endl;
 	return Value();

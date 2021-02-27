@@ -13,53 +13,53 @@
         "4"
       ]
     },
-    "Staticimage": "SmallTestCharacterWalkingAnimation1",
+    "Staticimage": "GoimboWalkSouth1",
     "Animations": {
       "Idle": {
         "Cyclespeed": 1.0,
         "Sprites": [
-          "SmallTestCharacterWalkingAnimation1",
-          "SmallTestCharacterWalkingAnimation2"
+          "GoimboWalkSouth1",
+          "GoimboWalkSouth2"
         ]
       },
       "WalkSouth": {
         "Cyclespeed": 2.0,
         "Sprites": [
-            "GoimboWalkSouth1",
-            "GoimboWalkSouth2",
-            "GoimboWalkSouth1",
-            "GoimboWalkSouth3"
+          "GoimboWalkSouth1",
+          "GoimboWalkSouth2",
+          "GoimboWalkSouth1",
+          "GoimboWalkSouth3"
         ]
       },
       "WalkEast": {
         "Cyclespeed": 2.0,
         "Sprites": [
-            "GoimboWalkEast1",
-            "GoimboWalkEast2",
-            "GoimboWalkEast3"
+          "GoimboWalkEast1",
+          "GoimboWalkEast2",
+          "GoimboWalkEast3"
         ]
       },
       "WalkNorth": {
         "Cyclespeed": 2.0,
         "Sprites": [
-            "GoimboWalkNorth1",
-            "GoimboWalkNorth2",
-            "GoimboWalkNorth1",
-            "GoimboWalkNorth3"
+          "GoimboWalkNorth1",
+          "GoimboWalkNorth2",
+          "GoimboWalkNorth1",
+          "GoimboWalkNorth3"
         ]
       },
       "WalkWest": {
         "Cyclespeed": 2.0,
         "Sprites": [
-            "GoimboWalkWest1",
-            "GoimboWalkWest2",
-            "GoimboWalkWest3"
+          "GoimboWalkWest1",
+          "GoimboWalkWest2",
+          "GoimboWalkWest3"
         ]
       }
     }
   },
 
-  "Blob": {
+  "Slime": {
     "ID": 2,
     "Type": "enemy",
     "Movespeed": 0.5,
@@ -75,15 +75,7 @@
         "3"
       ]
     },
-    "Staticimage": "SmallSlime",
-    "Animations": {
-      "Idle": {
-        "Sprites": [
-          "SlimeIdleSouth1",
-          "SlimeIdleSouth2"
-        ]
-      }
-    }
+    "Staticimage": "SmallSlime"
   },
 
   "VendorBob": {

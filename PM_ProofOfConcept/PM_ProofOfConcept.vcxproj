@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="header\AnimationRepo.h" />
     <ClInclude Include="header\EventHandling.h" />
+    <ClInclude Include="header\Global.h" />
     <ClInclude Include="header\ImageRepo.h" />
     <ClInclude Include="header\GameChar.h" />
     <ClInclude Include="header\Color.h" />
@@ -41,7 +42,27 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\CharacterData.json" />
+    <None Include="assets\ItemData.json" />
+    <None Include="assets\Map.json" />
+    <None Include="assets\Settings.json" />
     <None Include="vcpkg.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\Background\CaveFloorTest-export.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkEast1.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkEast2.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkEast3.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkNorth1.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkNorth2.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkNorth3.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkSouth1.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkSouth2.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkSouth3.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkWest1.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkWest2.png" />
+    <Image Include="assets\Characters\Goimbo\GoimboWalkWest3.png" />
+    <Image Include="assets\Characters\Slime\SmallSlime.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

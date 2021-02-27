@@ -26,23 +26,25 @@ class GameChar {
 	rect hitbox;
 
 	//rendering data
-	SDL_Texture* static_sprite;
-	Animation* current_animation;
+	SDL_Texture* static_sprite = NULL;
+	Animation* current_animation = NULL;
 	std::vector<Animation> sprites;
 	
 	WorldSpace* world;
 
-	void load_sprites(ImageRepo* img_repo, rapidjson::Value char_template);
+	void load_sprites(ImageRepo* img_repo, std::string template_name, rapidjson::Value* char_template);
+	SDL_Texture* get_current_sprite();
 	GameChar(std::string name, int type_id, vec2d init_loc, WorldSpace* world) :
-		name(name), type_id(type_id), loc(init_loc), world(world) {}
+		name(name), type_id(type_id), loc(init_loc), dest(init_loc), world(world), hitbox(rect()) {}
+
 
 public:
 	
-	~GameChar();
+	//~GameChar();
 	static GameChar* CreateCharacter(std::string name, int id, vec2d init_loc, WorldSpace* world, JsonRepo* json_repo, ImageRepo* img_repo);
 	void move_to(vec2d d);
 	void move_towards(vec2d d, float spd);
 	void set_destination(vec2d d);
-	void update();
+	void update(float speedmult);
 	void render(SDL_Renderer* renderer);
 };

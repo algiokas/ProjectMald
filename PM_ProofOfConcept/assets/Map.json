@@ -6,16 +6,16 @@
   "Margin": 5,
   "Speedmult": 0.07,
   "Backgroundcolor": "BLACK",
-  "Backgroundimage": "CaveFloorTest-export.png",
+  "Backgroundimage": "CaveFloorTest-export",
   "Characters": [
     {
       "Name": "Goimbo",
       "ID": 1,
       "Location": [ 100, 150 ]
-    }
+    },
     {
       "Name": "Slime",
-      "ID": 3,
+      "ID": 2,
       "Location": [ 450, 75 ]
     }
   ]

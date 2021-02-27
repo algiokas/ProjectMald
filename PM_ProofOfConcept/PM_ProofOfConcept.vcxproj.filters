@@ -42,6 +42,9 @@
     <ClInclude Include="header\AnimationRepo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\Global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game.cpp">
@@ -74,5 +77,53 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
+    <None Include="assets\Settings.json" />
+    <None Include="assets\CharacterData.json" />
+    <None Include="assets\ItemData.json" />
+    <None Include="assets\Map.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\Background\CaveFloorTest-export.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkEast1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkEast2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkEast3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkNorth1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkNorth2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkNorth3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkSouth1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkSouth2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkSouth3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkWest1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkWest2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Goimbo\GoimboWalkWest3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Characters\Slime\SmallSlime.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
