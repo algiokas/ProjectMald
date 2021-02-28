@@ -11,6 +11,8 @@ struct gamesettings
     std::string window_name;
     int window_width;
     int window_height;
+
+    gamesettings() : window_name(""), window_height(0), window_width(0) {}
 };
 
 gamesettings load_settings(JsonRepo* json_repo)

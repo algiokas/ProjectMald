@@ -3,7 +3,13 @@
 #include <iostream>
 #include <cmath>
 
-#include <rapidjson/document.h>
+GameChar::GameChar(std::string name, int type_id, vec2d init_loc, WorldSpace* world) :
+	name(name), type_id(type_id), loc(init_loc), dest(init_loc), world(world)
+{
+	this->hitbox = rect();
+	this->cardinal = cardinaldir::SOUTH;
+	this->animation_timer = SDL_GetTicks();
+}
 
 GameChar* GameChar::CreateCharacter(std::string name, int id, vec2d init_loc, WorldSpace* world, 
 									JsonRepo* json_repo, ImageRepo* img_repo)
@@ -27,8 +33,8 @@ void GameChar::load_sprites(ImageRepo* img_repo, std::string template_name, rapi
 	std::vector<std::string> dir_path = { "Characters", template_name };
 	static_sprite = img_repo->loadTexture(dir_path, static_img_fname);
 
-	rapidjson::Value animations = JsonRepo::get_jobject(char_template, "Animations");
-	animations = Animation::load_animations(dir_path, &animations, img_repo);
+	rapidjson::Value anim_data = JsonRepo::get_jobject(char_template, "Animations");
+	animations = Animation::load_animations(dir_path, &anim_data, img_repo);
 
 	//Set hitbox dimensions to the dimensions of the character's static sprite
 	SDL_QueryTexture(static_sprite, NULL, NULL, &hitbox.width, &hitbox.height);
@@ -90,21 +96,39 @@ void GameChar::set_destination(vec2d d)
 	vec2d center_dest = d - centroid;
 	vec2d disp = center_dest - loc;
 	this->cardinal = disp.cardinal();
+
+	if (this->cardinal != cardinaldir::NODIR)
+	{
+		anim_index = (int)cardinal + 1;
+	}
 	dest = d - centroid;
 }
 
 void GameChar::advance_animation()
 {
+	animations[anim_index].advance_frame();
 }
 
 void GameChar::update(float speedmult)
 {
+	if (anim_index >= 0)
+	{
+		Uint32 interval = SDL_GetTicks() - animation_timer;
+		if (interval > animations[anim_index].frame_interval())
+		{
+			advance_animation();
+			animation_timer = SDL_GetTicks();
+		}
+	}
+	if (loc == dest)
+	{
+		anim_index = 0;
+	}
 	if (loc != dest)
 	{
 		move_towards(dest, speedmult);
 	}
 }
-
 
 void GameChar::render(SDL_Renderer* renderer)
 {

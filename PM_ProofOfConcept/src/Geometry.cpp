@@ -22,6 +22,7 @@ cardinaldir vec2d::cardinal()
 	if (x > abs(y)) return cardinaldir::EAST;
 	if (y <= abs(x) * -1) return cardinaldir::SOUTH;
 	if (x < abs(y) * -1) return cardinaldir::WEST;
+	return cardinaldir::NODIR;
 }
 
 //when updating any of the vector components, we set len to -1 so that length() recalculates it

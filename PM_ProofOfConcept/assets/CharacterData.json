@@ -22,23 +22,6 @@
           "GoimboWalkSouth2"
         ]
       },
-      "WalkSouth": {
-        "Cyclespeed": 2.0,
-        "Sprites": [
-          "GoimboWalkSouth1",
-          "GoimboWalkSouth2",
-          "GoimboWalkSouth1",
-          "GoimboWalkSouth3"
-        ]
-      },
-      "WalkEast": {
-        "Cyclespeed": 2.0,
-        "Sprites": [
-          "GoimboWalkEast1",
-          "GoimboWalkEast2",
-          "GoimboWalkEast3"
-        ]
-      },
       "WalkNorth": {
         "Cyclespeed": 2.0,
         "Sprites": [
@@ -55,7 +38,25 @@
           "GoimboWalkWest2",
           "GoimboWalkWest3"
         ]
+      },
+      "WalkSouth": {
+        "Cyclespeed": 2.0,
+        "Sprites": [
+          "GoimboWalkSouth1",
+          "GoimboWalkSouth2",
+          "GoimboWalkSouth1",
+          "GoimboWalkSouth3"
+        ]
+      },
+      "WalkEast": {
+        "Cyclespeed": 2.0,
+        "Sprites": [
+          "GoimboWalkEast1",
+          "GoimboWalkEast2",
+          "GoimboWalkEast3"
+        ]
       }
+
     }
   },
 
