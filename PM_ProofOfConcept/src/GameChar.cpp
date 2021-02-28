@@ -106,24 +106,31 @@ void GameChar::set_destination(vec2d d)
 
 void GameChar::advance_animation()
 {
-	animations[anim_index].advance_frame();
+	if (anim_index >= 0)
+	{
+		animations[anim_index].advance_frame();
+	}
 }
 
 void GameChar::update(float speedmult)
 {
 	if (anim_index >= 0)
 	{
-		Uint32 interval = SDL_GetTicks() - animation_timer;
-		if (interval > animations[anim_index].frame_interval())
+		if (loc == dest)
 		{
-			advance_animation();
-			animation_timer = SDL_GetTicks();
+			anim_index = 0;
+		}
+		else
+		{
+			Uint32 interval = SDL_GetTicks() - animation_timer;
+			if (interval > animations[anim_index].frame_interval())
+			{
+				advance_animation();
+				animation_timer = SDL_GetTicks();
+			}
 		}
 	}
-	if (loc == dest)
-	{
-		anim_index = 0;
-	}
+
 	if (loc != dest)
 	{
 		move_towards(dest, speedmult);
