@@ -58,23 +58,15 @@ SDL_Texture* GameChar::get_current_sprite()
 	return animations[anim_index].get_current_frame();
 }
 
-//Move the centerpoint of the character to (x, y)
-void GameChar::move_to(vec2d d)
-{
-	loc = d - centroid;
-
-	//TODO add collision/bounds checking
-}
-
 //Move in the direction of the point (x, y) with steps of size [spd]
 void GameChar::move_towards(vec2d d, float spd)
 {
 	//calculate displacement vector
-	vec2d disp = d - (loc + centroid);
+	vec2d disp = d - loc;
 
 	vec2d new_loc = vec2d();
 	if (disp.length() <= spd) {
-		new_loc = d - centroid;
+		new_loc = d;
 	}
 	else
 	{
@@ -120,14 +112,11 @@ void GameChar::update(float speedmult)
 		{
 			anim_index = 0;
 		}
-		else
+		Uint32 interval = SDL_GetTicks() - animation_timer;
+		if (interval > animations[anim_index].frame_interval())
 		{
-			Uint32 interval = SDL_GetTicks() - animation_timer;
-			if (interval > animations[anim_index].frame_interval())
-			{
-				advance_animation();
-				animation_timer = SDL_GetTicks();
-			}
+			advance_animation();
+			animation_timer = SDL_GetTicks();
 		}
 	}
 
@@ -140,8 +129,8 @@ void GameChar::update(float speedmult)
 void GameChar::render(SDL_Renderer* renderer)
 {
 	SDL_Rect dstrect;
-	dstrect.x = (int)round(loc.get_x());
-	dstrect.y = (int)round(loc.get_y());
+	dstrect.x = (int)round((loc - centroid).get_x());
+	dstrect.y = (int)round((loc - centroid).get_y());
 	dstrect.w = 32; // hitbox.width;
 	dstrect.h = 32; // hitbox.height;
 

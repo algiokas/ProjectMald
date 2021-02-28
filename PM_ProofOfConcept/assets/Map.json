@@ -4,9 +4,9 @@
     "height": 540
   },
   "Margin": 5,
-  "Speedmult": 0.07,
+  "Speedmult": 0.02,
   "Backgroundcolor": "BLACK",
-  "Backgroundimage": "CaveFloorTest-export",
+  "Backgroundimage": "CaveFloor-light",
   "Characters": [
     {
       "Name": "Goimbo",

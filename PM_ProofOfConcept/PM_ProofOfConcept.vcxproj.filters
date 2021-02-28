@@ -125,5 +125,8 @@
     <Image Include="assets\Characters\Slime\SmallSlime.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\Background\CaveFloor-light.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

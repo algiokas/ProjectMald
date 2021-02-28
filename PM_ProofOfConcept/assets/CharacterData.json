@@ -18,12 +18,11 @@
       "Idle": {
         "Cyclespeed": 1.0,
         "Sprites": [
-          "GoimboWalkSouth1",
-          "GoimboWalkSouth2"
+          "GoimboWalkSouth1"
         ]
       },
       "WalkNorth": {
-        "Cyclespeed": 2.0,
+        "Cyclespeed": 4.0,
         "Sprites": [
           "GoimboWalkNorth1",
           "GoimboWalkNorth2",
@@ -32,7 +31,7 @@
         ]
       },
       "WalkWest": {
-        "Cyclespeed": 2.0,
+        "Cyclespeed": 4.0,
         "Sprites": [
           "GoimboWalkWest1",
           "GoimboWalkWest2",
@@ -40,7 +39,7 @@
         ]
       },
       "WalkSouth": {
-        "Cyclespeed": 2.0,
+        "Cyclespeed": 4.0,
         "Sprites": [
           "GoimboWalkSouth1",
           "GoimboWalkSouth2",
@@ -49,7 +48,7 @@
         ]
       },
       "WalkEast": {
-        "Cyclespeed": 2.0,
+        "Cyclespeed": 4.0,
         "Sprites": [
           "GoimboWalkEast1",
           "GoimboWalkEast2",

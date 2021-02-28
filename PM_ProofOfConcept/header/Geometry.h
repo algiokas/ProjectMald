@@ -31,6 +31,8 @@ public:
 
 	float length();
 	vec2d normal();
+
+	//Get the cardinal direction of a 2d vector
 	cardinaldir cardinal();
 };
 

@@ -46,7 +46,6 @@ public:
 	
 	//~GameChar();
 	static GameChar* CreateCharacter(std::string name, int id, vec2d init_loc, WorldSpace* world, JsonRepo* json_repo, ImageRepo* img_repo);
-	void move_to(vec2d d);
 	void move_towards(vec2d d, float spd);
 	void set_destination(vec2d d);
 	

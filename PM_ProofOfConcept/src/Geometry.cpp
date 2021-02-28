@@ -17,10 +17,12 @@ float vec2d::length()
 
 cardinaldir vec2d::cardinal()
 {
+	//Note: the y axis is flipped in this case. that is, an increase in the value of Y
+	// indicates "down" rather than up as in a regular coordinate system
 	if (len == 0) return cardinaldir::NODIR;
-	if (y >= abs(x)) return cardinaldir::NORTH;
-	if (x > abs(y)) return cardinaldir::EAST;
-	if (y <= abs(x) * -1) return cardinaldir::SOUTH;
+	if (y <= abs(x) * -1) return cardinaldir::NORTH;
+	if (x > abs(y)) return cardinaldir::EAST;	
+	if (y >= abs(x)) return cardinaldir::SOUTH;
 	if (x < abs(y) * -1) return cardinaldir::WEST;
 	return cardinaldir::NODIR;
 }

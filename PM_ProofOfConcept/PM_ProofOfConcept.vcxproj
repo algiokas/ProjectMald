@@ -49,6 +49,7 @@
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\Background\CaveFloor-light.png" />
     <Image Include="assets\Background\CaveFloorTest-export.png" />
     <Image Include="assets\Characters\Goimbo\GoimboWalkEast1.png" />
     <Image Include="assets\Characters\Goimbo\GoimboWalkEast2.png" />
