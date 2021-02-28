@@ -24,18 +24,19 @@ class GameChar {
 	vec2d dest;
 	vec2d centroid;
 	rect hitbox;
+	cardinaldir cardinal;
 
 	//rendering data
 	SDL_Texture* static_sprite = NULL;
-	Animation* current_animation = NULL;
-	std::vector<Animation> sprites;
+	std::vector<Animation> animations;
+	int anim_index = -1;
 	
 	WorldSpace* world;
 
 	void load_sprites(ImageRepo* img_repo, std::string template_name, rapidjson::Value* char_template);
 	SDL_Texture* get_current_sprite();
 	GameChar(std::string name, int type_id, vec2d init_loc, WorldSpace* world) :
-		name(name), type_id(type_id), loc(init_loc), dest(init_loc), world(world), hitbox(rect()) {}
+		name(name), type_id(type_id), loc(init_loc), dest(init_loc), world(world), hitbox(rect()), cardinal(cardinaldir::SOUTH){}
 
 
 public:

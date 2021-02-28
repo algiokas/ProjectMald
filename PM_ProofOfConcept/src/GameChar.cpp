@@ -28,7 +28,7 @@ void GameChar::load_sprites(ImageRepo* img_repo, std::string template_name, rapi
 	static_sprite = img_repo->loadTexture(dir_path, static_img_fname);
 
 	rapidjson::Value animations = JsonRepo::get_jobject(char_template, "Animations");
-	sprites = Animation::load_animations(dir_path, &animations, img_repo);
+	animations = Animation::load_animations(dir_path, &animations, img_repo);
 
 	//Set hitbox dimensions to the dimensions of the character's static sprite
 	SDL_QueryTexture(static_sprite, NULL, NULL, &hitbox.width, &hitbox.height);
@@ -47,9 +47,9 @@ void GameChar::load_sprites(ImageRepo* img_repo, std::string template_name, rapi
 
 SDL_Texture* GameChar::get_current_sprite()
 {
-	if (current_animation == NULL)
+	if (anim_index == -1)
 		return static_sprite;
-	return current_animation->get_current_frame();
+	return animations[anim_index].get_current_frame();
 }
 
 //Move the centerpoint of the character to (x, y)
@@ -87,6 +87,9 @@ void GameChar::move_towards(vec2d d, float spd)
 
 void GameChar::set_destination(vec2d d)
 {
+	vec2d center_dest = d - centroid;
+	vec2d disp = center_dest - loc;
+	this->cardinal = disp.cardinal();
 	dest = d - centroid;
 }
 

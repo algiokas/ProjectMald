@@ -32,7 +32,6 @@ public:
 	//get the current animation frame
 	SDL_Texture* get_current_frame();
 
-
 	//Load animations from a 
 	static std::vector<Animation> load_animations(std::vector<std::string> asset_subdirs, rapidjson::Value* animations_root, ImageRepo* image_repo);
 };

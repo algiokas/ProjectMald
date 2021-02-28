@@ -1,17 +1,5 @@
 #include "..\header\Geometry.h"
 
-//when updating any of the vector components, we set len to -1 so that length() recalculates it
-void vec2d::set_x(float new_x)
-{
-	x = new_x;
-	len = -1;
-}
-
-void vec2d::set_y(float new_y)
-{
-	y = new_y;
-	len = -1;
-}
 
 vec2d vec2d::normal()
 {
@@ -26,6 +14,28 @@ float vec2d::length()
 		len = (float)sqrt((x * x) + (y * y));
 	}
 	return len;
+}
+
+cardinaldir vec2d::cardinal()
+{
+	if (len == 0) return NODIR;
+	if (y >= abs(x)) return NORTH;
+	if (x > abs(y)) return EAST;
+	if (y <= abs(x) * -1) return SOUTH;
+	if (x < abs(y) * -1) return WEST;
+}
+
+//when updating any of the vector components, we set len to -1 so that length() recalculates it
+void vec2d::set_x(float new_x)
+{
+	x = new_x;
+	len = -1;
+}
+
+void vec2d::set_y(float new_y)
+{
+	y = new_y;
+	len = -1;
 }
 
 bool vec2d::operator ==(const vec2d& rhs)
