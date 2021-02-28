@@ -6,7 +6,6 @@ vec2d vec2d::normal()
 	return *this / length();
 }
 
-//if length hasn't already been calculated, calculate it and store it in len
 float vec2d::length()
 {
 	if (len < 0)
@@ -18,11 +17,11 @@ float vec2d::length()
 
 cardinaldir vec2d::cardinal()
 {
-	if (len == 0) return NODIR;
-	if (y >= abs(x)) return NORTH;
-	if (x > abs(y)) return EAST;
-	if (y <= abs(x) * -1) return SOUTH;
-	if (x < abs(y) * -1) return WEST;
+	if (len == 0) return cardinaldir::NODIR;
+	if (y >= abs(x)) return cardinaldir::NORTH;
+	if (x > abs(y)) return cardinaldir::EAST;
+	if (y <= abs(x) * -1) return cardinaldir::SOUTH;
+	if (x < abs(y) * -1) return cardinaldir::WEST;
 }
 
 //when updating any of the vector components, we set len to -1 so that length() recalculates it

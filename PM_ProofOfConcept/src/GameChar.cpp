@@ -93,6 +93,10 @@ void GameChar::set_destination(vec2d d)
 	dest = d - centroid;
 }
 
+void GameChar::advance_animation()
+{
+}
+
 void GameChar::update(float speedmult)
 {
 	if (loc != dest)
@@ -101,7 +105,7 @@ void GameChar::update(float speedmult)
 	}
 }
 
-//Draw the character's current sprite state onto the destination surface
+
 void GameChar::render(SDL_Renderer* renderer)
 {
 	SDL_Rect dstrect;

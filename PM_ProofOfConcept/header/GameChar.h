@@ -46,6 +46,11 @@ public:
 	void move_to(vec2d d);
 	void move_towards(vec2d d, float spd);
 	void set_destination(vec2d d);
+	void advance_animation();
+
+	//Update the character 
 	void update(float speedmult);
+
+	//Draw the character's current sprite state using the provided rend
 	void render(SDL_Renderer* renderer);
 };
