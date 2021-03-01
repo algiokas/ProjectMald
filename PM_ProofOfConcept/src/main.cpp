@@ -18,11 +18,11 @@ int main(int argc, char* argv[])
 	//The window we'll be rendering to
 	SDL_Window *gWindow = NULL;
 	SDL_Renderer* gRenderer = NULL;
-	ImageRepo* ImageRepo = NULL;
-	JsonRepo* JsonRepo = NULL;
+	ImageRepo* imageRepo = NULL;
+	JsonRepo* jsonRepo = NULL;
 	WorldSpace* world = NULL;
 
-	if (!init_game(gWindow, gRenderer, ImageRepo, JsonRepo, world))
+	if (!init_game(gWindow, gRenderer, imageRepo, jsonRepo, world))
 	{
 		std::cerr << "Failed to initialize" << std::endl;
 	}
@@ -40,6 +40,6 @@ int main(int argc, char* argv[])
 			world->render();
 		}
 	}	
-	close(gWindow, world);
+	close(gWindow, imageRepo, jsonRepo, world);
 	return 0;
 }
