@@ -131,8 +131,12 @@ void GameChar::render(SDL_Renderer* renderer)
 	SDL_Rect dstrect;
 	dstrect.x = (int)round((loc - centroid).get_x());
 	dstrect.y = (int)round((loc - centroid).get_y());
-	dstrect.w = 32; // hitbox.width;
-	dstrect.h = 32; // hitbox.height;
+	dstrect.w = 30; // hitbox.width;
+	dstrect.h = 30; // hitbox.height;
+
+	SDL_Rect char_outline = { (int)round((loc - centroid).get_x()), (int)round((loc - centroid).get_y()), 30, 30 };
+	SDL_SetRenderDrawColor(renderer, 0, 0xFF, 0xFF, SDL_ALPHA_OPAQUE);
 
 	SDL_RenderCopy(renderer, get_current_sprite(), NULL, &dstrect);
+	SDL_RenderDrawRect(renderer, &char_outline);
 }

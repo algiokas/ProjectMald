@@ -1,5 +1,6 @@
 {
   "Window_Name": "Project Mald - POC v0.1",
   "Window_Width": 960,
-  "Window_Height": 540
+  "Window_Height": 540,
+  "Debug_Mode": true
 }
