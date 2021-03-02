@@ -19,6 +19,8 @@ class Animation
 	int curr_frame_idx;
 	std::vector<SDL_Texture*> frames;
 
+	Animation create_animation(std::vector<std::string> asset_subdirs, std::string aname, rapidjson::Value aroot);
+
 public:
 	Animation(std::string name, float cyclespeed) :
 		name(name), cyclespeed(cyclespeed), curr_frame_idx(0) {}
@@ -30,8 +32,7 @@ public:
 	void advance_frame();
 
 	//get the current animation frame
-	SDL_Texture* get_current_frame();
+	SDL_Texture* current_frame();
 
-	//Load animations from a 
-	static std::vector<Animation> load_animations(std::vector<std::string> asset_subdirs, rapidjson::Value* animations_root, ImageRepo* image_repo);
+	std::vector<Animation> get_animations(std::vector<std::string> asset_subdirs, rapidjson::Value* animations_root, ImageRepo* image_repo);
 };

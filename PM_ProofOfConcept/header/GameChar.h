@@ -38,9 +38,9 @@ class GameChar {
 	GameChar(std::string name, int type_id, vec2d init_loc, WorldSpace* world);
 
 	void load_sprites(ImageRepo* img_repo, std::string template_name, rapidjson::Value* char_template);
-	SDL_Texture* get_current_sprite();	
+	SDL_Texture* current_sprite();	
 	void advance_animation();
-
+	Animation play_animation(std::string aname);
 
 public:
 	

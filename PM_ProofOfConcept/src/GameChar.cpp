@@ -51,11 +51,16 @@ void GameChar::load_sprites(ImageRepo* img_repo, std::string template_name, rapi
 	
 }
 
-SDL_Texture* GameChar::get_current_sprite()
+SDL_Texture* GameChar::current_sprite()
 {
 	if (anim_index == -1)
 		return static_sprite;
-	return animations[anim_index].get_current_frame();
+	return animations[anim_index].current_frame();
+}
+
+Animation GameChar::play_animation(std::string aname)
+{
+	//check if we have an animation in the list that matches the name, if we d
 }
 
 //Move in the direction of the point (x, y) with steps of size [spd]
@@ -137,6 +142,6 @@ void GameChar::render(SDL_Renderer* renderer)
 	SDL_Rect char_outline = { (int)round((loc - centroid).get_x()), (int)round((loc - centroid).get_y()), 30, 30 };
 	SDL_SetRenderDrawColor(renderer, 0, 0xFF, 0xFF, SDL_ALPHA_OPAQUE);
 
-	SDL_RenderCopy(renderer, get_current_sprite(), NULL, &dstrect);
+	SDL_RenderCopy(renderer, current_sprite(), NULL, &dstrect);
 	SDL_RenderDrawRect(renderer, &char_outline);
 }
