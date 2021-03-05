@@ -22,6 +22,8 @@ class GameChar {
 	//Location and geometry
 	vec2d loc;
 	vec2d dest;
+	vec2d velocity;
+	float max_speed;
 	vec2d centroid;
 	rect hitbox;
 	cardinaldir cardinal;
@@ -29,8 +31,8 @@ class GameChar {
 	//rendering data
 	Uint32 animation_timer;
 	SDL_Texture* static_sprite = NULL;
-	std::vector<Animation> animations;
-	int anim_index = -1;
+	std::map<std::string, Animation> animations;
+	std::string current_anim = "";
 	
 	WorldSpace* world;
 
@@ -40,7 +42,7 @@ class GameChar {
 	void load_sprites(ImageRepo* img_repo, std::string template_name, rapidjson::Value* char_template);
 	SDL_Texture* current_sprite();	
 	void advance_animation();
-	Animation play_animation(std::string aname);
+	void play_animation(std::string aname);
 
 public:
 	

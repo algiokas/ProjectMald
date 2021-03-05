@@ -53,14 +53,24 @@ void GameChar::load_sprites(ImageRepo* img_repo, std::string template_name, rapi
 
 SDL_Texture* GameChar::current_sprite()
 {
-	if (anim_index == -1)
+	if (current_anim.empty())
 		return static_sprite;
-	return animations[anim_index].current_frame();
+	return animations[current_anim].current_frame();
 }
 
-Animation GameChar::play_animation(std::string aname)
+//Checks the list of animations for an animation named [aname]
+//if found, sets it as the current animation. If not found, stops animation.
+void GameChar::play_animation(std::string aname)
 {
-	//check if we have an animation in the list that matches the name, if we d
+	if (animations.find(aname) != animations.end())
+	{
+		current_anim = aname;
+	}
+	else
+	{
+		current_anim = "";
+		std::cerr << "Animation: " << aname << "Not found" << std::endl;
+	}
 }
 
 //Move in the direction of the point (x, y) with steps of size [spd]
