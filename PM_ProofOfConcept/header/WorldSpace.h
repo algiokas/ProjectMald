@@ -4,7 +4,7 @@
 
 #include "GameChar.h"
 #include "Color.h"
-#include "JsonRepo.h"
+#include "repository/JsonRepo.h"
 
 class GameChar;
 class ImageRepo;
@@ -25,14 +25,18 @@ class WorldSpace
 		width(width), height(height), margin(margin), speedmult(speedmult), 
 		bg_color(bg_color), bg_texture(bg_texture), renderer(renderer), player_character(NULL) {}
 
+	//Used to check if a rectangle collides with the worldspace itself
+	bool world_collision_x(float x1, float x2);
+	bool world_collision_y(float y1, float y2);
+
+	bool object_collision()
+
 public:
 	~WorldSpace();
 
 	static WorldSpace* CreateWorld(JsonRepo* json_repo, ImageRepo* img_repo, SDL_Renderer* renderer);
 
-	//Check the worldspace for collisions (with other objects/characters or with the map)
-	bool check_collision_x(float x1, float x2);
-	bool check_collision_y(float y1, float y2);
+	bool check_collision(GameChar* c);
 	GameChar* get_pc();
 	void add_character(GameChar* new_char);
 	void update();

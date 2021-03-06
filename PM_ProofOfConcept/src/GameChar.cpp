@@ -3,6 +3,9 @@
 #include <iostream>
 #include <cmath>
 
+static const float BASE_MAX_SPEED = 320;
+static const int ACCELERATION_STEPS = 10; //How many steps it takes a character to reach max speed
+
 GameChar::GameChar(std::string name, int type_id, vec2d init_loc, float max_speed, WorldSpace* world) :
 	name(name), type_id(type_id), loc(init_loc), dest(init_loc), max_speed(max_speed), world(world)
 {
@@ -20,9 +23,9 @@ GameChar* GameChar::CreateCharacter(std::string name, int id, vec2d init_loc, Wo
 	auto char_template = json_repo->get_by_id(all_char_data, id, &t_name);
 	if (!char_template.IsNull())
 	{
-		float speed_mult = JsonRepo::get_float(&char_template, "Movespeed", 0.0);
+		float ms = BASE_MAX_SPEED * JsonRepo::get_float(&char_template, "Movespeed", 0.0);
 		//TODO - load other character stats from JSON here
-		GameChar* new_char = new GameChar(name, id, init_loc, BASE_MAX_SPEED * speed_mult, world);
+		GameChar* new_char = new GameChar(name, id, init_loc, ms, world);
 		new_char->load_sprites(img_repo, t_name, &char_template);
 		return new_char;
 	}
@@ -60,8 +63,7 @@ SDL_Texture* GameChar::current_sprite()
 	return animations[current_anim].current_frame();
 }
 
-//Checks the list of animations for an animation named [aname]
-//if found, sets it as the current animation. If not found, stops animation.
+
 void GameChar::play_animation(std::string aname)
 {
 	if (aname != current_anim)
@@ -78,27 +80,28 @@ void GameChar::play_animation(std::string aname)
 	}
 }
 
-//Move in the direction of the point (x, y) with steps of size [spd]
-void GameChar::move_towards(vec2d d, float spd)
+void GameChar::move_towards(vec2d d)
 {
 	//calculate displacement vector
 	vec2d disp = d - loc;
 
-	vec2d new_loc = vec2d();
-	if (disp.length() <= spd) {
-		new_loc = d;
-	}
-	else
+	float time_step = movement_timer / 1000;
+	float accel_step = 1 / ACCELERATION_STEPS;
+
+	if (velocity.length() < max_speed && !equal_relative(velocity.length(), max_speed))
 	{
-		//get new location value by adding normalized displacement vector multiplied by movespeed
-		new_loc = loc + (disp.normal() * spd);
+		vec2d new_velocity = velocity + (velocity.normal() * max_speed * accel_step);
+		if (new_velocity.length() > max_speed && !equal_relative(new_velocity.length(), max_speed))
+		{
+			velocity = velocity.scale(max_speed);
+		}
 	}
-	//std::cout << "Move To: (" << new_x << ", " << new_y << ")" << std::endl;
+	vec2d new_loc = loc + (velocity * time_step);
 	
-	if (!world->check_collision_x(new_loc.get_x(), new_loc.get_x() + hitbox.width)) {
+	if (!world->world_collision_x(new_loc.get_x(), new_loc.get_x() + hitbox.width)) {
 		loc.set_x(new_loc.get_x());
 	}
-	if (!world->check_collision_y(new_loc.get_y(), new_loc.get_y() + hitbox.height)) {
+	if (!world->world_collision_y(new_loc.get_y(), new_loc.get_y() + hitbox.height)) {
 		loc.set_y(new_loc.get_y());
 	}
 }
@@ -124,7 +127,6 @@ void GameChar::set_destination(vec2d d)
 		play_animation("WalkWest");
 		break;
 	}
-
 	dest = d - centroid;
 }
 
@@ -152,10 +154,12 @@ void GameChar::update(float speedmult)
 		}
 	}
 
+	
 	if (loc != dest)
 	{
-		move_towards(dest, speedmult);
+		move_towards(dest);
 	}
+	movement_timer = 0;
 }
 
 void GameChar::render(SDL_Renderer* renderer)

@@ -19,23 +19,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\AnimationRepo.h" />
+    <ClInclude Include="header\Animation.h" />
+    <ClInclude Include="header\Collider.h" />
     <ClInclude Include="header\EventHandling.h" />
     <ClInclude Include="header\Global.h" />
-    <ClInclude Include="header\ImageRepo.h" />
+    <ClInclude Include="header\repository\ImageRepo.h" />
     <ClInclude Include="header\GameChar.h" />
     <ClInclude Include="header\Color.h" />
     <ClInclude Include="header\Game.h" />
-    <ClInclude Include="header\JsonRepo.h" />
+    <ClInclude Include="header\repository\JsonRepo.h" />
     <ClInclude Include="header\Geometry.h" />
     <ClInclude Include="header\WorldSpace.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\AnimationRepo.cpp" />
-    <ClCompile Include="src\JsonRepo.cpp" />
+    <ClCompile Include="src\Animation.cpp" />
+    <ClCompile Include="src\repository\JsonRepo.cpp" />
     <ClCompile Include="src\Geometry.cpp" />
     <ClCompile Include="src\EventHandling.cpp" />
-    <ClCompile Include="src\ImageRepo.cpp" />
+    <ClCompile Include="src\repository\ImageRepo.cpp" />
     <ClCompile Include="src\WorldSpace.cpp" />
     <ClCompile Include="src\GameChar.cpp" />
     <ClCompile Include="src\Game.cpp" />

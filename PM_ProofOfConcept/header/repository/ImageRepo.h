@@ -6,7 +6,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "Global.h"
+#include "../Global.h"
 
 class ImageRepo
 {	

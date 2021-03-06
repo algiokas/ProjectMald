@@ -1,4 +1,4 @@
-#include "../header/ImageRepo.h"
+#include "../../header/repository/ImageRepo.h"
 
 #include <SDL2/SDL_image.h>
 

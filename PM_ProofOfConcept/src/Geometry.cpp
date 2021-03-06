@@ -1,9 +1,40 @@
 #include "..\header\Geometry.h"
 
+bool equal_relative(float a, float b, float maxDiffRel = FLT_EPSILON)
+{
+	float delta = std::abs(a - b);
+	if (delta == 0.0f) return true;
+
+	float max = (std::abs(a) > std::abs(b)) ? std::abs(a) : std::abs(b);
+	if (delta <= max * maxDiffRel)
+		return true;
+	return false;
+}
 
 vec2d vec2d::normal()
 {
-	return *this / length();
+	return this->scale(1.0);
+}
+
+vec2d vec2d::scale(float new_length)
+{
+	float scaling_ratio = new_length / len;
+	return (*this) * scaling_ratio;
+}
+
+void vec2d::resize(float new_length)
+{
+	float scaling_ratio = new_length / len;
+	x *= scaling_ratio;
+	y *= scaling_ratio;
+}
+
+
+bool vec2d::is_collinear(vec2d v)
+{
+	float x_ratio = this->x / v.x;
+	float y_ratio = this->y / v.y;
+	return equal_relative(x_ratio, y_ratio);
 }
 
 float vec2d::length()
@@ -18,12 +49,12 @@ float vec2d::length()
 cardinaldir vec2d::cardinal()
 {
 	//Note: the y axis is flipped in this case. that is, an increase in the value of Y
-	// indicates "down" rather than up as in a regular coordinate system
+	// indicates "down" rather than up as in a regular cartesian coordinate system
 	if (len == 0) return cardinaldir::NODIR;
-	if (y <= abs(x) * -1) return cardinaldir::NORTH;
-	if (x > abs(y)) return cardinaldir::EAST;	
-	if (y >= abs(x)) return cardinaldir::SOUTH;
-	if (x < abs(y) * -1) return cardinaldir::WEST;
+	if (y <= std::abs(x) * -1) return cardinaldir::NORTH;
+	if (x > std::abs(y)) return cardinaldir::EAST;	
+	if (y >= std::abs(x)) return cardinaldir::SOUTH;
+	if (x < std::abs(y) * -1) return cardinaldir::WEST;
 	return cardinaldir::NODIR;
 }
 

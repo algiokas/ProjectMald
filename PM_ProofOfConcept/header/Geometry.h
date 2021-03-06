@@ -1,13 +1,15 @@
 #pragma once
 
 #include <cmath>
+#include <float.h>
 
 enum class cardinaldir : int
 {
 	NORTH, WEST, SOUTH, EAST, NODIR
 };
 
-//char** CARDINAL_NAMES = { "North", "West", "South", "East" }
+//checks whether two floats are approximately equal relative to their size
+bool equal_relative(float a, float b, float maxDiffRel = FLT_EPSILON);
 
 class vec2d
 {
@@ -29,8 +31,18 @@ public:
 	void set_x(float new_x);
 	void set_y(float new_y);
 
+	//Get the length of this vector
 	float length();
+
+	//Get a copy of this vector with length 1
 	vec2d normal();
+
+	//Get a copy of this vector with length [new_length]
+	vec2d scale(float new_length);
+
+	//Modify this vector to have length [new_length]
+	void resize(float new_length);
+	bool is_collinear(vec2d v);
 
 	//Get the cardinal direction of a 2d vector
 	cardinaldir cardinal();

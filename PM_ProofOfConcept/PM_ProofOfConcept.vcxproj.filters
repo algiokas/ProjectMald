@@ -27,22 +27,25 @@
     <ClInclude Include="header\GameChar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\ImageRepo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="header\EventHandling.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\JsonRepo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\AnimationRepo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="header\Global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\repository\JsonRepo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\repository\ImageRepo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Collider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,19 +62,19 @@
     <ClCompile Include="src\GameChar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ImageRepo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\EventHandling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Geometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\JsonRepo.cpp">
+    <ClCompile Include="src\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AnimationRepo.cpp">
+    <ClCompile Include="src\repository\JsonRepo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\repository\ImageRepo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

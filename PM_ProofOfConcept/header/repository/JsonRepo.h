@@ -5,7 +5,7 @@
 
 #include <rapidjson/document.h>
 
-#include "Global.h"
+#include "../Global.h"
 
 using namespace rapidjson;
 

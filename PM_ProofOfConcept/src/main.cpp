@@ -10,7 +10,7 @@
 #include "../header/Geometry.h"
 #include "../header/GameChar.h"
 #include "../header/WorldSpace.h"
-#include "../header/ImageRepo.h"
+#include "../header/repository/ImageRepo.h"
 #include "../header/EventHandling.h"
 
 int main(int argc, char* argv[])

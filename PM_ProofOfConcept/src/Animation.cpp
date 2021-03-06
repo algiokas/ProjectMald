@@ -1,4 +1,4 @@
-#include "..\header\AnimationRepo.h"
+#include "..\header\Animation.h"
 
 float Animation::frame_interval()
 {

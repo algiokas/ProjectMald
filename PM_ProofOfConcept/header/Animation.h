@@ -6,8 +6,8 @@
 #include <string>
 #include <iostream>
 
-#include "JsonRepo.h"
-#include "ImageRepo.h"
+#include "repository/JsonRepo.h"
+#include "repository/ImageRepo.h"
 
 class Animation
 {
