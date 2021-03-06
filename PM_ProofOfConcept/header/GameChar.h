@@ -19,7 +19,7 @@ class GameChar {
 	int type_id;
 	std::string type_name;
 
-	//Location and geometry
+	//Location, movement, and collision
 	vec2d loc;
 	vec2d dest;
 	vec2d velocity;
@@ -27,6 +27,8 @@ class GameChar {
 	vec2d centroid;
 	rect hitbox;
 	cardinaldir cardinal;
+
+	static const int BASE_MAX_SPEED = 320;
 
 	//rendering data
 	Uint32 animation_timer;
@@ -37,7 +39,7 @@ class GameChar {
 	WorldSpace* world;
 
 	//Private constructor, class should be instantiated using CreateCharacter
-	GameChar(std::string name, int type_id, vec2d init_loc, WorldSpace* world);
+	GameChar(std::string name, int type_id, vec2d init_loc, float max_speed, WorldSpace* world);
 
 	void load_sprites(ImageRepo* img_repo, std::string template_name, rapidjson::Value* char_template);
 	SDL_Texture* current_sprite();	

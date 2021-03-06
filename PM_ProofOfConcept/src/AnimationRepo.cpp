@@ -20,7 +20,7 @@ std::map<std::string, Animation> Animation::load_animations(std::vector<std::str
 	if (!animations_root->IsObject())
 	{
 		std::cerr << "load_animations requires JSON value of object type" << std::endl;
-		return std::map<std::string, Animation>();
+		//return std::map<std::string, Animation>();
 	}
 
 	std::map<std::string, Animation> animations;

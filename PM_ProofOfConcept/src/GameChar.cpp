@@ -3,9 +3,10 @@
 #include <iostream>
 #include <cmath>
 
-GameChar::GameChar(std::string name, int type_id, vec2d init_loc, WorldSpace* world) :
-	name(name), type_id(type_id), loc(init_loc), dest(init_loc), world(world)
+GameChar::GameChar(std::string name, int type_id, vec2d init_loc, float max_speed, WorldSpace* world) :
+	name(name), type_id(type_id), loc(init_loc), dest(init_loc), max_speed(max_speed), world(world)
 {
+	this->velocity = vec2d();
 	this->hitbox = rect();
 	this->cardinal = cardinaldir::SOUTH;
 	this->animation_timer = SDL_GetTicks();
@@ -19,8 +20,9 @@ GameChar* GameChar::CreateCharacter(std::string name, int id, vec2d init_loc, Wo
 	auto char_template = json_repo->get_by_id(all_char_data, id, &t_name);
 	if (!char_template.IsNull())
 	{
+		float speed_mult = JsonRepo::get_float(&char_template, "Movespeed", 0.0);
 		//TODO - load other character stats from JSON here
-		GameChar* new_char = new GameChar(name, id, init_loc, world);
+		GameChar* new_char = new GameChar(name, id, init_loc, BASE_MAX_SPEED * speed_mult, world);
 		new_char->load_sprites(img_repo, t_name, &char_template);
 		return new_char;
 	}
@@ -62,14 +64,17 @@ SDL_Texture* GameChar::current_sprite()
 //if found, sets it as the current animation. If not found, stops animation.
 void GameChar::play_animation(std::string aname)
 {
-	if (animations.find(aname) != animations.end())
+	if (aname != current_anim)
 	{
-		current_anim = aname;
-	}
-	else
-	{
-		current_anim = "";
-		std::cerr << "Animation: " << aname << "Not found" << std::endl;
+		if (animations.find(aname) != animations.end())
+		{
+			current_anim = aname;
+		}
+		else
+		{
+			current_anim = "";
+			std::cerr << "Animation: " << aname << "Not found" << std::endl;
+		}
 	}
 }
 
@@ -104,31 +109,43 @@ void GameChar::set_destination(vec2d d)
 	vec2d disp = center_dest - loc;
 	this->cardinal = disp.cardinal();
 
-	if (this->cardinal != cardinaldir::NODIR)
+	switch (cardinal)
 	{
-		anim_index = (int)cardinal + 1;
+	case cardinaldir::NORTH :
+		play_animation("WalkNorth");
+		break;
+	case cardinaldir::EAST :
+		play_animation("WalkEast");
+		break;
+	case cardinaldir::SOUTH :
+		play_animation("WalkSouth");
+		break;
+	case cardinaldir::WEST :
+		play_animation("WalkWest");
+		break;
 	}
+
 	dest = d - centroid;
 }
 
 void GameChar::advance_animation()
 {
-	if (anim_index >= 0)
+	if (!current_anim.empty())
 	{
-		animations[anim_index].advance_frame();
+		animations[current_anim].advance_frame();
 	}
 }
 
 void GameChar::update(float speedmult)
 {
-	if (anim_index >= 0)
+	if (!current_anim.empty())
 	{
 		if (loc == dest)
 		{
-			anim_index = 0;
+			play_animation("Idle");
 		}
 		Uint32 interval = SDL_GetTicks() - animation_timer;
-		if (interval > animations[anim_index].frame_interval())
+		if (interval > animations[current_anim].frame_interval())
 		{
 			advance_animation();
 			animation_timer = SDL_GetTicks();
