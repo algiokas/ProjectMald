@@ -2,6 +2,7 @@
 
 bool equal_relative(float a, float b, float maxDiffRel = FLT_EPSILON)
 {
+	if ((a < 0) != (b < 0)) return false; //check if they have the same sign
 	float delta = std::abs(a - b);
 	if (delta == 0.0f) return true;
 

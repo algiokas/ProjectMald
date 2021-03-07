@@ -42,6 +42,8 @@ public:
 
 	//Modify this vector to have length [new_length]
 	void resize(float new_length);
+
+	//check if two vectors point in the same direction
 	bool is_collinear(vec2d v);
 
 	//Get the cardinal direction of a 2d vector

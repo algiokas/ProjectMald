@@ -9,10 +9,11 @@
 #include "repository/ImageRepo.h"
 #include "repository/JsonRepo.h"
 #include "Animation.h"
+#include "Collider.h"
 
 class WorldSpace;
 
-class GameChar {
+class GameChar : Collider{
 	std::string name;
 
 	//Character type members
@@ -20,12 +21,10 @@ class GameChar {
 	std::string type_name;
 
 	//Location, movement, and collision
-	vec2d loc;
 	vec2d dest;
 	vec2d velocity;
 	float max_speed;
 	vec2d centroid;
-	rect hitbox;
 	cardinaldir cardinal;
 	Uint32 movement_timer;
 

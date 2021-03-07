@@ -95,6 +95,10 @@ void GameChar::move_towards(vec2d d)
 		{
 			velocity = velocity.scale(max_speed);
 		}
+		else
+		{
+			velocity = new_velocity;
+		}
 	}
 	vec2d new_loc = loc + (velocity * time_step);
 	
@@ -104,6 +108,7 @@ void GameChar::move_towards(vec2d d)
 	if (!world->world_collision_y(new_loc.get_y(), new_loc.get_y() + hitbox.height)) {
 		loc.set_y(new_loc.get_y());
 	}
+	movement_timer = 0;
 }
 
 void GameChar::set_destination(vec2d d)
