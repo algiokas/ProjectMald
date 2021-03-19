@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <SDL2/SDL.h>
 
 #include "GameChar.h"
 #include "Color.h"
@@ -26,17 +27,14 @@ class WorldSpace
 		bg_color(bg_color), bg_texture(bg_texture), renderer(renderer), player_character(NULL) {}
 
 	//Used to check if a rectangle collides with the worldspace itself
-	bool world_collision_x(float x1, float x2);
-	bool world_collision_y(float y1, float y2);
-
-	bool object_collision()
+	bool world_collision(SDL_Rect hitbox);
 
 public:
 	~WorldSpace();
 
 	static WorldSpace* CreateWorld(JsonRepo* json_repo, ImageRepo* img_repo, SDL_Renderer* renderer);
 
-	bool check_collision(GameChar* c);
+	bool check_collision_move(GameChar* c, SDL_Rect new_hitbox);
 	GameChar* get_pc();
 	void add_character(GameChar* new_char);
 	void update();

@@ -10,7 +10,6 @@ GameChar::GameChar(std::string name, int type_id, vec2d init_loc, float max_spee
 	name(name), type_id(type_id), loc(init_loc), dest(init_loc), max_speed(max_speed), world(world)
 {
 	this->velocity = vec2d();
-	this->hitbox = rect();
 	this->cardinal = cardinaldir::SOUTH;
 	this->animation_timer = SDL_GetTicks();
 }
@@ -42,12 +41,12 @@ void GameChar::load_sprites(ImageRepo* img_repo, std::string template_name, rapi
 	animations = Animation::load_animations(dir_path, &anim_data, img_repo);
 
 	//Set hitbox dimensions to the dimensions of the character's static sprite
-	SDL_QueryTexture(static_sprite, NULL, NULL, &hitbox.width, &hitbox.height);
+	SDL_QueryTexture(static_sprite, NULL, NULL, &hitbox.w, &hitbox.h);
 
-	if (hitbox.width > 0 && hitbox.height > 0)
+	if (hitbox.w > 0 && hitbox.h > 0)
 	{
-		centroid.set_x(hitbox.width / 2.0f);
-		centroid.set_y(hitbox.height / 2.0f);
+		centroid.set_x(hitbox.w / 2.0f);
+		centroid.set_y(hitbox.h / 2.0f);
 	}
 	else
 	{
@@ -82,33 +81,40 @@ void GameChar::play_animation(std::string aname)
 
 void GameChar::move_towards(vec2d d)
 {
-	//calculate displacement vector
+	//displacement vector
 	vec2d disp = d - loc;
-
 	float time_step = movement_timer / 1000;
-	float accel_step = 1 / ACCELERATION_STEPS;
 
-	if (velocity.length() < max_speed && !equal_relative(velocity.length(), max_speed))
+	if (!disp.is_collinear(velocity))
 	{
-		vec2d new_velocity = velocity + (velocity.normal() * max_speed * accel_step);
-		if (new_velocity.length() > max_speed && !equal_relative(new_velocity.length(), max_speed))
-		{
-			velocity = velocity.scale(max_speed);
-		}
-		else
-		{
-			velocity = new_velocity;
-		}
+		velocity = disp.scale(max_speed);
 	}
-	vec2d new_loc = loc + (velocity * time_step);
 	
-	if (!world->world_collision_x(new_loc.get_x(), new_loc.get_x() + hitbox.width)) {
-		loc.set_x(new_loc.get_x());
-	}
-	if (!world->world_collision_y(new_loc.get_y(), new_loc.get_y() + hitbox.height)) {
-		loc.set_y(new_loc.get_y());
-	}
-	movement_timer = 0;
+	//float accel_step = 1 / ACCELERATION_STEPS;
+
+	//if (velocity.length() < max_speed && !equal_relative(velocity.length(), max_speed))
+	//{
+	//	vec2d new_velocity = velocity + (velocity.normal() * max_speed * accel_step);
+	//	if (new_velocity.length() > max_speed && !equal_relative(new_velocity.length(), max_speed))
+	//	{
+	//		velocity = velocity.scale(max_speed);
+	//	}
+	//	else
+	//	{
+	//		velocity = new_velocity;
+	//	}
+	//}
+
+	vec2d new_loc = loc + (velocity * time_step);
+	SDL_Rect new_hbox = calculate_hitbox(new_loc);
+
+	world->check_collision_move(this, new_hbox);
+}
+
+SDL_Rect GameChar::calculate_hitbox(vec2d loc)
+{
+	SDL_Rect new_box = { (loc - centroid).get_x(), (loc - centroid).get_y(), hitbox.w, hitbox.h };
+	return new_box;
 }
 
 void GameChar::set_destination(vec2d d)
@@ -119,6 +125,9 @@ void GameChar::set_destination(vec2d d)
 
 	switch (cardinal)
 	{
+	case cardinaldir::NODIR : //case where destination = location (d = loc)
+		play_animation("Idle");
+		break;
 	case cardinaldir::NORTH :
 		play_animation("WalkNorth");
 		break;

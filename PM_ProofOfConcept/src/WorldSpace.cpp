@@ -3,6 +3,11 @@
 
 #include <iostream>
 
+bool WorldSpace::world_collision(SDL_Rect hitbox)
+{
+	return false;
+}
+
 WorldSpace::~WorldSpace()
 {
 	for (GameChar* c : all_characters)
@@ -83,17 +88,12 @@ WorldSpace* WorldSpace::CreateWorld(JsonRepo* json_repo, ImageRepo* img_repo, SD
 	return brave_new_world;
 }
 
-bool WorldSpace::world_collision_x(float x1, float x2)
-{
-	return (x1 < margin && x2 >= width - margin);
-}
-
-bool WorldSpace::world_collision_y(float y1, float y2)
-{
-	return (y1 < margin && y2 >= height - margin);
-}
-
 bool WorldSpace::check_collision(GameChar* c)
+{
+	return false;
+}
+
+bool WorldSpace::check_collision_move(GameChar* c, SDL_Rect new_hitbox)
 {
 	return false;
 }

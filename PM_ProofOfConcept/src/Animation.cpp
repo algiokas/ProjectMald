@@ -32,14 +32,22 @@ std::map<std::string, Animation> Animation::load_animations(std::vector<std::str
 		{
 			auto aroot = it->value.GetObject();
 			float cyclespeed = aroot["Cyclespeed"].GetFloat();
+			auto dir_iter = aroot.FindMember("Directions");
+			if (dir_iter != aroot.MemberEnd()) {
 
-			Animation new_anim = Animation(aname, cyclespeed);
-			auto sprite_names = aroot["Sprites"].GetArray();
-			for (auto s_itr = sprite_names.Begin(); s_itr != sprite_names.end(); s_itr++)
-			{
-				new_anim.frames.push_back(image_repo->loadTexture(asset_subdirs, s_itr->GetString()));
 			}
-			animations.insert(std::make_pair(aname, new_anim));
+			else
+			{
+				Animation new_anim = Animation(aname, cyclespeed);
+				auto sprite_names = aroot["Sprites"].GetArray();
+				for (auto s_itr = sprite_names.Begin(); s_itr != sprite_names.end(); s_itr++)
+				{
+					new_anim.frames.push_back(image_repo->loadTexture(asset_subdirs, s_itr->GetString()));
+				}
+				animations.insert(std::make_pair(aname, new_anim));
+			}
+
+			
 		}
 	}
 	return animations;

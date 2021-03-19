@@ -2,23 +2,32 @@
 
 bool Collider::check_collision(Collider* other)
 {
-	return check_collision_inner(other->loc.get_x(), other->loc.get_y(), 
-								 other->hitbox.width, other->hitbox.width);
+	return check_collision_inner(other->hitbox.x, other->hitbox.y, 
+								 other->hitbox.x + hitbox.w, other->hitbox.y + hitbox.h);
+}
+
+bool Collider::check_collision_inner(SDL_Rect other_hbox)
+{
+	SDL_Rect result;
+	return SDL_IntersectRect(&hitbox, &other_hbox, &result);
 }
 
 bool Collider::check_collision_inner(float x, float y, float w, float h)
 {
-	bool x_collision = (loc.get_x() > x && loc.get_x() < x + w) ||
-		(loc.get_x() + hitbox.width > x &&
-			loc.get_x() + hitbox.width < x + w);
+	SDL_Rect result;
+	SDL_Rect other = { x, y, w, h };
+	return check_collision_inner(other);
+}
 
-	bool y_collision = (loc.get_y() > y && loc.get_y() < y + h) ||
-		(loc.get_y() + hitbox.width > y &&
-			loc.get_y() + hitbox.width < y + h);
-	return 
+bool Collider::check_collision_outer(SDL_Rect other_hbox)
+{
+	return check_collision_outer(other_hbox.x, other_hbox.y, other_hbox.w, other_hbox.h);
 }
 
 bool Collider::check_collision_outer(float x, float y, float w, float h)
 {
-	return false;
+	if (hitbox.x < x) return true;
+	if (hitbox.y < y) return true;
+	if (hitbox.x + hitbox.w > x + w) return true;
+	if (hitbox.y + hitbox.h > y + h) return true;
 }

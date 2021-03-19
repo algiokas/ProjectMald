@@ -17,45 +17,47 @@
     "Animations": {
       "Idle": {
         "Cyclespeed": 1.0,
-        "Sprites": [
-          "GoimboWalkSouth1"
-        ]
+        "Directions": {
+          "North": [
+            "GoimboWalkNorth1"
+          ],
+          "West": [
+            "GoimboWalkNorth1"
+          ],
+          "South": [
+            "GoimboWalkNorth1"
+          ],
+          "East": [
+            "GoimboWalkNorth1"
+          ]
+        }
       },
-      "WalkNorth": {
+      "Walk": {
         "Cyclespeed": 4.0,
-        "Sprites": [
-          "GoimboWalkNorth1",
-          "GoimboWalkNorth2",
-          "GoimboWalkNorth1",
-          "GoimboWalkNorth3"
-        ]
-      },
-      "WalkWest": {
-        "Cyclespeed": 4.0,
-        "Sprites": [
-          "GoimboWalkWest1",
-          "GoimboWalkWest2",
-          "GoimboWalkWest3"
-        ]
-      },
-      "WalkSouth": {
-        "Cyclespeed": 4.0,
-        "Sprites": [
-          "GoimboWalkSouth1",
-          "GoimboWalkSouth2",
-          "GoimboWalkSouth1",
-          "GoimboWalkSouth3"
-        ]
-      },
-      "WalkEast": {
-        "Cyclespeed": 4.0,
-        "Sprites": [
-          "GoimboWalkEast1",
-          "GoimboWalkEast2",
-          "GoimboWalkEast3"
-        ]
-      }
-
+        "Directions": {
+          "North": [
+            "GoimboWalkNorth1",
+            "GoimboWalkNorth2",
+            "GoimboWalkNorth1",
+            "GoimboWalkNorth3"
+          ],
+          "West": [
+            "GoimboWalkWest1",
+            "GoimboWalkWest2",
+            "GoimboWalkWest3"
+          ],
+          "South": [
+            "GoimboWalkSouth1",
+            "GoimboWalkSouth2",
+            "GoimboWalkSouth1",
+            "GoimboWalkSouth3"
+          ],
+          "East": [
+            "GoimboWalkEast1",
+            "GoimboWalkEast2",
+            "GoimboWalkEast3"
+          ]
+        }
     }
   },
 

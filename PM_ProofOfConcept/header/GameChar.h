@@ -13,7 +13,7 @@
 
 class WorldSpace;
 
-class GameChar : Collider{
+class GameChar : public Collider{
 	std::string name;
 
 	//Character type members
@@ -21,6 +21,7 @@ class GameChar : Collider{
 	std::string type_name;
 
 	//Location, movement, and collision
+	vec2d loc;
 	vec2d dest;
 	vec2d velocity;
 	float max_speed;
@@ -53,8 +54,10 @@ class GameChar : Collider{
 	//Move in the direction of the point d
 	void move_towards(vec2d d);
 
+
+	SDL_Rect calculate_hitbox(vec2d new_loc);
+
 public:
-	
 	static GameChar* CreateCharacter(std::string name, int id, vec2d init_loc, WorldSpace* world, JsonRepo* json_repo, ImageRepo* img_repo);
 
 	//Set a destination that the character will move towards
