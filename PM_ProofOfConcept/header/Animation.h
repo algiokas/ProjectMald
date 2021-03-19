@@ -32,5 +32,5 @@ public:
 	//get the current animation frame
 	SDL_Texture* current_frame();
 
-	static std::map<std::string, Animation> load_animations(std::vector<std::string> asset_subdirs, rapidjson::Value* animations_root, ImageRepo* image_repo);
+	std::map<std::string, Animation> load_animations(std::vector<std::string> asset_subdirs, json animations_root, ImageRepo* image_repo);
 };

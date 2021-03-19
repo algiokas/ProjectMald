@@ -1,5 +1,7 @@
 #include "..\header\Animation.h"
 
+using json = nlohmann::json;
+
 float Animation::frame_interval()
 {
 	return BASE_ANIMATION_INTERVAL / cyclespeed;
@@ -15,15 +17,18 @@ SDL_Texture* Animation::current_frame()
 	return frames[curr_frame_idx];
 }
 
-std::map<std::string, Animation> Animation::load_animations(std::vector<std::string> asset_subdirs, rapidjson::Value* animations_root, ImageRepo* image_repo)
+std::map<std::string, Animation> Animation::load_animations(std::vector<std::string> asset_subdirs, json animations_root, ImageRepo* image_repo)
 {
-	if (!animations_root->IsObject())
+	if (!animations_root.is_object())
 	{
-		std::cerr << "load_animations requires JSON value of object type" << std::endl;
+		std::cerr << "load_animations() requires JSON value of object type" << std::endl;
 		//return std::map<std::string, Animation>();
 	}
-
 	std::map<std::string, Animation> animations;
+
+
+
+	
 	for (rapidjson::Value::ConstMemberIterator it = animations_root->MemberBegin();
 		it != animations_root->MemberEnd(); ++it)
 	{
@@ -47,10 +52,12 @@ std::map<std::string, Animation> Animation::load_animations(std::vector<std::str
 				animations.insert(std::make_pair(aname, new_anim));
 			}
 
-			
+
 		}
 	}
 	return animations;
 }
+
+
 
 
