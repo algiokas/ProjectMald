@@ -1,13 +1,26 @@
 #pragma once
 
 #include <cmath>
+#include <string>
 #include <float.h>
+#include <map>
 
 enum class cardinaldir : int
 {
 	NORTH, WEST, SOUTH, EAST, NODIR
 };
 
+const std::map<cardinaldir, std::string> cardinal_names = {
+	{cardinaldir::NORTH, "North"},
+	{cardinaldir::WEST, "West"},
+	{cardinaldir::SOUTH, "South"},
+	{cardinaldir::EAST, "East"} };
+
+const std::map<std::string, cardinaldir> cardinal_values = {
+	{ "North", cardinaldir::NORTH },
+	{ "West", cardinaldir::WEST },
+	{"South", cardinaldir::SOUTH },
+	{"East", cardinaldir::EAST, } };
 //checks whether two floats are approximately equal relative to their size
 bool equal_relative(float a, float b, float maxDiffRel = FLT_EPSILON);
 

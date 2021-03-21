@@ -3,42 +3,48 @@
 #include <iostream>
 #include <cmath>
 
+using json = nlohmann::json;
+
 static const float BASE_MAX_SPEED = 320;
 static const int ACCELERATION_STEPS = 10; //How many steps it takes a character to reach max speed
 
-GameChar::GameChar(std::string name, int type_id, vec2d init_loc, float max_speed, WorldSpace* world) :
-	name(name), type_id(type_id), loc(init_loc), dest(init_loc), max_speed(max_speed), world(world)
+GameChar::GameChar(std::string name, int type_id, vec2d init_loc, WorldSpace* world) :
+	name(name), type_id(type_id), loc(init_loc), dest(init_loc), world(world)
 {
 	this->velocity = vec2d();
 	this->cardinal = cardinaldir::SOUTH;
 	this->animation_timer = SDL_GetTicks();
 }
 
-GameChar* GameChar::CreateCharacter(std::string name, int id, vec2d init_loc, WorldSpace* world, 
+std::unique_ptr<GameChar> GameChar::create_character(std::string name, int id, vec2d init_loc, WorldSpace* world,
 									JsonRepo* json_repo, ImageRepo* img_repo)
 {
 	std::string t_name;
-	auto all_char_data = json_repo->get_char_data();
-	auto char_template = json_repo->get_by_id(all_char_data, id, &t_name);
-	if (!char_template.IsNull())
+	json all_char_data = json_repo->get_char_data();
+	json char_template = json_repo->get_by_id(all_char_data, id, t_name);
+	
+	try 
 	{
-		float ms = BASE_MAX_SPEED * JsonRepo::get_float(&char_template, "Movespeed", 0.0);
-		//TODO - load other character stats from JSON here
-		GameChar* new_char = new GameChar(name, id, init_loc, ms, world);
-		new_char->load_sprites(img_repo, t_name, &char_template);
-		return new_char;
+		if (!char_template.empty())
+		{
+			std::unique_ptr<GameChar> new_char = std::unique_ptr<GameChar>(new GameChar(name, id, init_loc, world));
+			new_char->max_speed = BASE_MAX_SPEED * char_template["Movespeed"].get<float_t>();			
+			new_char->load_sprites(img_repo, t_name, char_template);
+			return new_char;
+		}
 	}
-	return NULL;
+	catch (json::exception ex)
+	{
+		std::cerr << "create_character() JSON error : " << ex.what() << std::endl;
+	}
+	return nullptr;
 }
 
-void GameChar::load_sprites(ImageRepo* img_repo, std::string template_name, rapidjson::Value* char_template)
+void GameChar::load_sprites(ImageRepo* img_repo, std::string template_name, nlohmann::json char_template)
 {
-	std::string static_img_fname = JsonRepo::get_string(char_template, "Staticimage", "CHARACTER_PH");
+	std::string static_img_fname = char_template["Staticimage"].get<std::string>();
 	std::vector<std::string> dir_path = { "Characters", template_name };
 	static_sprite = img_repo->loadTexture(dir_path, static_img_fname);
-
-	rapidjson::Value anim_data = JsonRepo::get_jobject(char_template, "Animations");
-	animations = Animation::load_animations(dir_path, &anim_data, img_repo);
 
 	//Set hitbox dimensions to the dimensions of the character's static sprite
 	SDL_QueryTexture(static_sprite, NULL, NULL, &hitbox.w, &hitbox.h);
@@ -51,6 +57,16 @@ void GameChar::load_sprites(ImageRepo* img_repo, std::string template_name, rapi
 	else
 	{
 		std::cerr << "Invalid sprite hitbox for: " << name << std::endl;
+	}
+
+	auto anims_root = char_template.find("Animations");
+	if (anims_root != char_template.end())
+	{
+		this->animations = Animation::load_animations(dir_path, anims_root.value(), img_repo);
+	}
+	else
+	{
+		std::cerr << "No animations found in template : " << template_name << std::endl;
 	}
 	
 }
@@ -65,9 +81,15 @@ SDL_Texture* GameChar::current_sprite()
 
 void GameChar::play_animation(std::string aname)
 {
-	if (aname != current_anim)
+	std::string anim_key;
+	if (cardinal == cardinaldir::NODIR)
+		anim_key = Animation::get_key(aname, cardinaldir::SOUTH);
+	else
+		anim_key = Animation::get_key(aname, cardinal);
+	
+	if (anim_key != current_anim)
 	{
-		if (animations.find(aname) != animations.end())
+		if (animations.find(anim_key) != animations.end())
 		{
 			current_anim = aname;
 		}
@@ -123,23 +145,13 @@ void GameChar::set_destination(vec2d d)
 	vec2d disp = center_dest - loc;
 	this->cardinal = disp.cardinal();
 
-	switch (cardinal)
+	if (this->cardinal == cardinaldir::NODIR)
 	{
-	case cardinaldir::NODIR : //case where destination = location (d = loc)
 		play_animation("Idle");
-		break;
-	case cardinaldir::NORTH :
-		play_animation("WalkNorth");
-		break;
-	case cardinaldir::EAST :
-		play_animation("WalkEast");
-		break;
-	case cardinaldir::SOUTH :
-		play_animation("WalkSouth");
-		break;
-	case cardinaldir::WEST :
-		play_animation("WalkWest");
-		break;
+	}
+	else
+	{
+		play_animation("Walk");
 	}
 	dest = d - centroid;
 }

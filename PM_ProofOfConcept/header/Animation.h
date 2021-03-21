@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 
+#include "Geometry.h"
 #include "repository/JsonRepo.h"
 #include "repository/ImageRepo.h"
 
@@ -16,12 +17,16 @@ class Animation
 
 	std::string name;
 	float cyclespeed;
-	int curr_frame_idx;
+	int curr_frame_idx = 0;
+	cardinaldir cardinal = cardinaldir::NODIR;
 	std::vector<SDL_Texture*> frames;
 
 public:
 	Animation(std::string name, float cyclespeed) :
-		name(name), cyclespeed(cyclespeed), curr_frame_idx(0) {}
+		name(name), cyclespeed(cyclespeed) {}
+
+	Animation(std::string name, float cyclespeed, cardinaldir dir) :
+		name(name), cyclespeed(cyclespeed), cardinal(dir) {}
 
 	//get interval in ms between animation frames
 	float frame_interval();
@@ -32,5 +37,8 @@ public:
 	//get the current animation frame
 	SDL_Texture* current_frame();
 
-	std::map<std::string, Animation> load_animations(std::vector<std::string> asset_subdirs, json animations_root, ImageRepo* image_repo);
+	static std::map<std::string, Animation> load_animations(std::vector<std::string> asset_subdirs, nlohmann::json animations_root, ImageRepo* image_repo);
+
+	//Get the key for a particular animation direction
+	static std::string get_key(std::string aname, cardinaldir dir);
 };

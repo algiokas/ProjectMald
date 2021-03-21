@@ -61,6 +61,69 @@ json JsonRepo::get_map_data()
 	return get_game_data("Map");
 }
 
+nlohmann::json JsonRepo::get_by_id(nlohmann::json root, int id)
+{
+	std::string s;
+	return get_by_id(root, id, s);
+}
+
+nlohmann::json JsonRepo::get_by_id(nlohmann::json root, int id, std::string& name)
+{
+	for (auto element : root.items())
+	{
+		if (element.value().contains("ID") && 
+			element.value()["ID"].is_number_integer() && 
+			element.value()["ID"] == id)
+		{
+			name = element.key();
+			return element.value();
+		}
+	}
+	return nlohmann::json();
+}
+
+
+
+int JsonRepo::get_int(nlohmann::json root, std::string key, int default_value)
+{
+	auto it = root.find(key);
+	if (it != root.end() && it.value().is_number_integer())
+	{
+		return it.value().get<json::number_integer_t>();
+	}
+	return default_value;
+}
+
+bool JsonRepo::get_bool(nlohmann::json root, std::string key, bool default_value)
+{
+	auto it = root.find(key);
+	if (it != root.end() && it.value().is_boolean())
+	{
+		return it.value().get<json::boolean_t>();
+	}
+	return default_value;
+}
+
+float JsonRepo::get_float(nlohmann::json root, std::string key, float default_value)
+{
+	auto it = root.find(key);
+	if (it != root.end() && it.value().is_number_float())
+	{
+		return it.value().get<json::number_float_t>();
+	}
+	return default_value;
+}
+
+std::string JsonRepo::get_string(nlohmann::json root, std::string key, std::string default_value)
+{
+	auto it = root.find(key);
+	if (it != root.end() && it.value().is_string())
+	{
+		return it.value().get<json::string_t>();
+	}
+	return default_value;
+}
+
 
 void JsonRepo::preload()
 {

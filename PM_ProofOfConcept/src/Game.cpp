@@ -19,7 +19,7 @@ gamesettings load_settings(JsonRepo* json_repo)
 {
     gamesettings settings;
 
-    Document* settings_doc = json_repo->get_game_settings();
+    nlohmann::json settings_doc = json_repo->get_game_settings();
     settings.window_name = json_repo->get_string(settings_doc, "Window_Name", "[DEFAULT WINDOW NAME]");
     settings.window_width = json_repo->get_int(settings_doc, "Window_Width", 640);
     settings.window_height = json_repo->get_int(settings_doc, "Window_Height", 480);
